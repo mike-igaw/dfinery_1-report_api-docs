@@ -413,6 +413,7 @@
   <div class="nav-section en">Getting Started</div>
   <a class="nav-link" href="#overview"><span class="ko">개요</span><span class="en">Overview</span></a>
   <a class="nav-link" href="#authentication"><span class="ko">인증</span><span class="en">Authentication</span></a>
+  <a class="nav-link" href="#token-guide"><span class="ko">토큰 생성 가이드</span><span class="en">Token Generation Guide</span></a>
   <a class="nav-link" href="#constraints"><span class="ko">제약 사항 & 호출 제한</span><span class="en">Constraints & Rate Limits</span></a>
 
   <div class="nav-section ko">리포트 API</div>
@@ -505,6 +506,14 @@
       </div>
     </div>
 
+    <div class="callout callout-warn">
+      <span class="callout-icon">🔐</span>
+      <div>
+        <span class="ko"><code>access_token</code>이 아직 없으신가요? 아래 <a href="#token-guide" style="color:var(--accent-light);">토큰 생성 가이드</a>를 참고하세요.</span>
+        <span class="en">Don't have an <code>access_token</code> yet? See the <a href="#token-guide" style="color:var(--accent-light);">Token Generation Guide</a> below.</span>
+      </div>
+    </div>
+
     <h4><span class="ko">헤더 인증</span><span class="en">Header Authentication</span></h4>
     <pre><span class="code-key">GET</span> /api/v1/analytics/report
 <span class="code-key">Host:</span> oac.adbrix.io
@@ -512,6 +521,145 @@
 
     <h4><span class="ko">쿼리 스트링 인증</span><span class="en">Query String Authentication</span></h4>
     <pre><span class="code-key">GET</span> /api/v1/analytics/report?<span class="code-string">access_token={your_access_token}</span>&appkey={appkey}</pre>
+  </section>
+
+  <hr>
+
+  <!-- TOKEN GENERATION GUIDE -->
+  <section id="token-guide">
+    <h2><span class="icon">🪪</span><span class="ko">토큰 생성 가이드</span><span class="en">Token Generation Guide</span></h2>
+    <p class="section-desc">
+      <span class="ko">디파이너리 콘솔에서 API 연동용 <code>access_token</code>을 발급하는 방법입니다. 머신 계정을 생성하면 사람 계정과 분리된 전용 토큰을 사용할 수 있습니다.</span>
+      <span class="en">Follow these steps to generate an <code>access_token</code> for API integration from the DFINERY console. Creating a machine account provides a dedicated token separate from personal user accounts.</span>
+    </p>
+
+    <!-- Step 1 -->
+    <div class="card" style="margin-bottom:16px;display:flex;gap:20px;align-items:start;">
+      <div style="min-width:48px;height:48px;border-radius:12px;background:var(--badge-bg);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--accent);">1</div>
+      <div style="flex:1;">
+        <h4 style="margin-top:0;"><span class="ko">디파이너리 콘솔 로그인</span><span class="en">Log in to the DFINERY Console</span></h4>
+        <p style="margin:0;font-size:14px;color:var(--text-secondary);">
+          <span class="ko"><a href="https://console.dfinery.ai" style="color:var(--accent-light);text-decoration:none;">console.dfinery.ai</a>에 접속하여 관리자 계정으로 로그인합니다.</span>
+          <span class="en">Go to <a href="https://console.dfinery.ai" style="color:var(--accent-light);text-decoration:none;">console.dfinery.ai</a> and log in with your admin account.</span>
+        </p>
+        <div class="callout callout-info" style="margin-top:12px;margin-bottom:0;">
+          <span class="callout-icon">💡</span>
+          <div>
+            <span class="ko">머신 계정 생성은 <strong>관리자(Admin) 권한</strong>이 필요합니다. 권한이 없는 경우 조직 관리자에게 문의하세요.</span>
+            <span class="en"><strong>Admin privileges</strong> are required to create machine accounts. Contact your organization admin if you don't have access.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="card" style="margin-bottom:16px;display:flex;gap:20px;align-items:start;">
+      <div style="min-width:48px;height:48px;border-radius:12px;background:var(--badge-bg);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--accent);">2</div>
+      <div style="flex:1;">
+        <h4 style="margin-top:0;"><span class="ko">Users 관리 페이지 이동</span><span class="en">Navigate to Users Management</span></h4>
+        <p style="margin:0;font-size:14px;color:var(--text-secondary);">
+          <span class="ko">좌측 메뉴 또는 상단에서 <strong>Account &gt; Users</strong>로 이동합니다.</span>
+          <span class="en">Navigate to <strong>Account &gt; Users</strong> from the left menu or top navigation.</span>
+        </p>
+        <div style="margin-top:12px;padding:10px 16px;border-radius:8px;background:var(--bg-code);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-secondary);">
+          Account → Users
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="card" style="margin-bottom:16px;display:flex;gap:20px;align-items:start;">
+      <div style="min-width:48px;height:48px;border-radius:12px;background:var(--badge-bg);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--accent);">3</div>
+      <div style="flex:1;">
+        <h4 style="margin-top:0;"><span class="ko">Invite Users 클릭</span><span class="en">Click Invite Users</span></h4>
+        <p style="margin:0;font-size:14px;color:var(--text-secondary);">
+          <span class="ko">Users 페이지 우측 상단의 <strong>"Invite Users"</strong> 버튼을 클릭합니다.</span>
+          <span class="en">Click the <strong>"Invite Users"</strong> button at the top-right corner of the Users page.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="card" style="margin-bottom:16px;display:flex;gap:20px;align-items:start;">
+      <div style="min-width:48px;height:48px;border-radius:12px;background:var(--badge-bg);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--accent);">4</div>
+      <div style="flex:1;">
+        <h4 style="margin-top:0;"><span class="ko">머신 추가하기</span><span class="en">Add Machine Account</span></h4>
+        <p style="margin:0;font-size:14px;color:var(--text-secondary);">
+          <span class="ko">초대 유형에서 <strong>"머신 추가하기"</strong>를 선택합니다. 머신 계정은 사람이 아닌 시스템(서버, 스크립트 등)이 API를 호출할 때 사용하는 전용 계정입니다.</span>
+          <span class="en">Select <strong>"Add Machine"</strong> from the invitation options. Machine accounts are dedicated accounts for systems (servers, scripts, etc.) that call the API programmatically.</span>
+        </p>
+        <div class="callout callout-info" style="margin-top:12px;margin-bottom:0;">
+          <span class="callout-icon">🤖</span>
+          <div>
+            <span class="ko"><strong>왜 머신 계정인가?</strong> 사람 계정의 토큰은 비밀번호 변경 시 무효화될 수 있습니다. 머신 계정은 독립적으로 관리되어 API 연동의 안정성이 보장됩니다.</span>
+            <span class="en"><strong>Why a machine account?</strong> Tokens tied to personal accounts can be invalidated when passwords change. Machine accounts are managed independently, ensuring stable API integrations.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="card" style="margin-bottom:16px;display:flex;gap:20px;align-items:start;">
+      <div style="min-width:48px;height:48px;border-radius:12px;background:var(--badge-bg);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--accent);">5</div>
+      <div style="flex:1;">
+        <h4 style="margin-top:0;"><span class="ko">관리용 이름 지정 후 저장</span><span class="en">Set a Name and Save</span></h4>
+        <p style="margin:0;font-size:14px;color:var(--text-secondary);">
+          <span class="ko">머신 계정의 용도를 알 수 있도록 <strong>관리용 이름</strong>을 지정합니다. (예: <code>data-pipeline</code>, <code>report-api-prod</code>) 이름 입력 후 <strong>"저장"</strong>을 클릭합니다.</span>
+          <span class="en">Enter a <strong>descriptive name</strong> to identify the purpose of this machine account (e.g., <code>data-pipeline</code>, <code>report-api-prod</code>). Click <strong>"Save"</strong>.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="card" style="margin-bottom:16px;display:flex;gap:20px;align-items:start;border-color:var(--border-active);">
+      <div style="min-width:48px;height:48px;border-radius:12px;background:var(--status-ok-bg);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--green);">✓</div>
+      <div style="flex:1;">
+        <h4 style="margin-top:0;color:var(--green);"><span class="ko">토큰 확인</span><span class="en">View Your Token</span></h4>
+        <p style="margin:0;font-size:14px;color:var(--text-secondary);">
+          <span class="ko">Users 목록으로 돌아가면 방금 생성한 머신 계정이 표시됩니다. 해당 행에서 <strong>"토큰보기"</strong>를 클릭하면 <code>access_token</code>을 확인할 수 있습니다.</span>
+          <span class="en">Return to the Users list where your newly created machine account will appear. Click <strong>"View Token"</strong> on the corresponding row to reveal your <code>access_token</code>.</span>
+        </p>
+        <div class="callout callout-warn" style="margin-top:12px;margin-bottom:0;">
+          <span class="callout-icon">⚠️</span>
+          <div>
+            <span class="ko"><strong>보안 주의:</strong> 토큰은 비밀번호와 동일한 보안 수준으로 관리하세요. 코드에 하드코딩하지 말고 환경 변수나 시크릿 매니저를 사용하는 것을 권장합니다.</span>
+            <span class="en"><strong>Security Notice:</strong> Treat your token with the same security as a password. Avoid hardcoding in source code — use environment variables or a secret manager instead.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick summary -->
+    <div style="margin-top:24px;padding:20px;border-radius:12px;background:var(--bg-card);border:1px solid var(--border);">
+      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">
+        <span class="ko">요약</span><span class="en">Summary</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;">
+        <span style="padding:6px 12px;border-radius:8px;background:var(--badge-bg);color:var(--badge-color);font-weight:600;">
+          <span class="ko">콘솔 로그인</span><span class="en">Console Login</span>
+        </span>
+        <span style="color:var(--text-muted);">→</span>
+        <span style="padding:6px 12px;border-radius:8px;background:var(--badge-bg);color:var(--badge-color);font-weight:600;">
+          Account > Users
+        </span>
+        <span style="color:var(--text-muted);">→</span>
+        <span style="padding:6px 12px;border-radius:8px;background:var(--badge-bg);color:var(--badge-color);font-weight:600;">
+          Invite Users
+        </span>
+        <span style="color:var(--text-muted);">→</span>
+        <span style="padding:6px 12px;border-radius:8px;background:var(--badge-bg);color:var(--badge-color);font-weight:600;">
+          <span class="ko">머신 추가</span><span class="en">Add Machine</span>
+        </span>
+        <span style="color:var(--text-muted);">→</span>
+        <span style="padding:6px 12px;border-radius:8px;background:var(--badge-bg);color:var(--badge-color);font-weight:600;">
+          <span class="ko">이름 저장</span><span class="en">Name & Save</span>
+        </span>
+        <span style="color:var(--text-muted);">→</span>
+        <span style="padding:6px 12px;border-radius:8px;background:var(--status-ok-bg);color:var(--status-ok-color);font-weight:600;">
+          <span class="ko">토큰보기 ✓</span><span class="en">View Token ✓</span>
+        </span>
+      </div>
+    </div>
   </section>
 
   <hr>
