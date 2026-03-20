@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DFINERY Report Open API Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg-secondary: #161822;
+    --bg-card: #1c1e2e;
+    --bg-code: #1a1c2e;
+    --bg-inline: rgba(59,130,246,0.08);
+    --border: rgba(255,255,255,0.06);
+    --border-active: rgba(59,130,246,0.4);
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --green: #22c55e;
+    --orange: #f97316;
+    --red: #ef4444;
+    --purple: #a78bfa;
+    --cyan: #22d3ee;
+    --yellow: #fbbf24;
+    --text: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --sidebar-w: 280px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    padding: 24px 0;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .sidebar-logo {
+    padding: 0 24px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .sidebar-logo h1 {
+    font-size: 18px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .sidebar-logo p {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .nav-section {
+    padding: 8px 24px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-top: 12px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 8px 24px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: rgba(59,130,246,0.05);
+    border-left-color: rgba(59,130,246,0.3);
+  }
+
+  .nav-link.active {
+    color: var(--accent-light);
+    background: rgba(59,130,246,0.08);
+    border-left-color: var(--accent);
+  }
+
+  .nav-link.sub {
+    padding-left: 40px;
+    font-size: 12px;
+  }
+
+  /* ===== MAIN ===== */
+  .main {
+    margin-left: var(--sidebar-w);
+    max-width: 900px;
+    padding: 48px 64px 120px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(59,130,246,0.1);
+    color: var(--accent-light);
+    border: 1px solid rgba(59,130,246,0.2);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+
+  .hero p {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ===== SECTIONS ===== */
+  section {
+    margin-bottom: 56px;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-top: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  h2 .icon { margin-right: 10px; }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 32px 0 12px;
+    color: var(--text);
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    color: var(--accent-light);
+  }
+
+  .section-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  p { margin-bottom: 12px; font-size: 15px; }
+
+  /* ===== CODE ===== */
+  .endpoint-block {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 16px 0 20px;
+  }
+
+  .endpoint-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .method {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .method-get { background: rgba(34,197,94,0.15); color: var(--green); }
+  .method-post { background: rgba(59,130,246,0.15); color: var(--accent); }
+
+  .endpoint-url {
+    color: var(--text-secondary);
+    word-break: break-all;
+  }
+
+  .endpoint-url .param {
+    color: var(--orange);
+  }
+
+  pre {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  :not(pre) > code {
+    background: var(--bg-inline);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--accent-light);
+  }
+
+  .code-key { color: var(--purple); }
+  .code-string { color: var(--green); }
+  .code-number { color: var(--orange); }
+  .code-bool { color: var(--cyan); }
+  .code-comment { color: var(--text-muted); font-style: italic; }
+
+  /* ===== TABLES ===== */
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 16px 0 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead {
+    background: rgba(59,130,246,0.06);
+  }
+
+  th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  td code {
+    font-size: 12px;
+  }
+
+  /* ===== PARAM TABLE ===== */
+  .param-table {
+    margin: 16px 0 20px;
+  }
+
+  .param-row {
+    display: grid;
+    grid-template-columns: 160px 100px 1fr;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    align-items: start;
+  }
+
+  .param-row:last-child { border-bottom: none; }
+
+  .param-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .param-type {
+    color: var(--purple);
+    font-size: 12px;
+  }
+
+  .param-desc {
+    color: var(--text-secondary);
+  }
+
+  .required {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    background: rgba(239,68,68,0.12);
+    color: var(--red);
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .optional {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    background: rgba(100,116,139,0.15);
+    color: var(--text-muted);
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ===== CARDS ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0 20px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--border-active);
+  }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 6px;
+  }
+
+  .card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    display: flex;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin: 16px 0 20px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .callout-info {
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.15);
+    color: var(--text-secondary);
+  }
+
+  .callout-warn {
+    background: rgba(251,191,36,0.06);
+    border: 1px solid rgba(251,191,36,0.15);
+    color: var(--text-secondary);
+  }
+
+  .callout-danger {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.15);
+    color: var(--text-secondary);
+  }
+
+  /* ===== STATUS BADGE ===== */
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .status-ok { background: rgba(34,197,94,0.12); color: var(--green); }
+  .status-err { background: rgba(239,68,68,0.12); color: var(--red); }
+  .status-warn { background: rgba(251,191,36,0.12); color: var(--yellow); }
+  .status-limit { background: rgba(249,115,22,0.12); color: var(--orange); }
+
+  /* ===== DIVIDER ===== */
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ===== LISTS ===== */
+  ul, ol {
+    padding-left: 20px;
+    margin: 8px 0 16px;
+  }
+
+  li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 24px; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>DFINERY</h1>
+    <p>Report Open API</p>
+  </div>
+
+  <div class="nav-section">Getting Started</div>
+  <a class="nav-link" href="#overview">Overview</a>
+  <a class="nav-link" href="#authentication">Authentication</a>
+  <a class="nav-link" href="#constraints">Constraints & Rate Limits</a>
+
+  <div class="nav-section">Report APIs</div>
+  <a class="nav-link" href="#common-rules">Common Rules</a>
+  <a class="nav-link" href="#single-touch">Single-Touch Attribution</a>
+  <a class="nav-link" href="#event-analytics">Event Analytics</a>
+  <a class="nav-link" href="#retention">Retention Analytics</a>
+  <a class="nav-link" href="#funnel">Conversion Funnel</a>
+
+  <div class="nav-section">Metadata APIs</div>
+  <a class="nav-link" href="#meta-adpartners">Ad Partners</a>
+  <a class="nav-link" href="#meta-campaigns">Campaigns</a>
+  <a class="nav-link" href="#meta-trackers">Trackers</a>
+  <a class="nav-link" href="#meta-events">Events</a>
+  <a class="nav-link" href="#meta-properties">Properties</a>
+  <a class="nav-link" href="#meta-enums">Enums</a>
+
+  <div class="nav-section">Real-Time</div>
+  <a class="nav-link" href="#livebrix">LiveBrix API</a>
+
+  <div class="nav-section">Reference</div>
+  <a class="nav-link" href="#response-format">Response Format</a>
+  <a class="nav-link" href="#error-codes">Error Codes</a>
+  <a class="nav-link" href="#data-format">Data Format Notes</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- HERO -->
+  <div class="hero" id="overview">
+    <div class="hero-badge">📡 REST API v1</div>
+    <h1>DFINERY Report<br>Open API</h1>
+    <p>
+      Access your Adbrix Remaster analytics data programmatically.
+      Retrieve report data configured in the console through simple REST API calls.
+    </p>
+    <div class="hero-meta">
+      <span>🔗 Base URL: <code>https://oac.adbrix.io/api/v1/</code></span>
+      <span>📧 se.team@adbrixsupport.zendesk.com</span>
+    </div>
+  </div>
+
+  <!-- OVERVIEW CARDS -->
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h4>Report APIs</h4>
+      <p>Single-Touch Attribution, Event Analytics, Retention, Conversion Funnel reports</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🗂️</div>
+      <h4>Metadata APIs</h4>
+      <p>Ad Partners, Campaigns, Trackers, Events, Properties, Enums</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h4>LiveBrix Real-Time</h4>
+      <p>Real-time action reporting with 7-day lookback window</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h4>Secure Access</h4>
+      <p>Token-based authentication with IP whitelisting and rate limiting</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- AUTHENTICATION -->
+  <section id="authentication">
+    <h2><span class="icon">🔑</span>Authentication</h2>
+    <p class="section-desc">All API calls require an <code>access_token</code> for authentication. The token can be passed via the request header or as a query string parameter.</p>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div>Obtain your <code>access_token</code> from the Adbrix Remaster console. Contact your account manager if you need API access enabled.</div>
+    </div>
+
+    <h4>Header Authentication</h4>
+    <pre><span class="code-key">GET</span> /api/v1/analytics/report
+<span class="code-key">Host:</span> oac.adbrix.io
+<span class="code-key">access_token:</span> <span class="code-string">{your_access_token}</span></pre>
+
+    <h4>Query String Authentication</h4>
+    <pre><span class="code-key">GET</span> /api/v1/analytics/report?<span class="code-string">access_token={your_access_token}</span>&appkey={appkey}</pre>
+  </section>
+
+  <hr>
+
+  <!-- CONSTRAINTS -->
+  <section id="constraints">
+    <h2><span class="icon">⚠️</span>Constraints & Rate Limits</h2>
+    <p class="section-desc">Understanding the API limits and constraints for reliable integration.</p>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚡</span>
+      <div><strong>Rate Limit:</strong> API calls are limited to <strong>2,000 requests per day</strong>. Throttling is enforced to prevent system overload.</div>
+    </div>
+
+    <h4>Key Constraints</h4>
+    <ul>
+      <li>Reports must first be configured in the Remaster console before API access</li>
+      <li>Only data from configured reports is available — new columns require report modification</li>
+      <li>Maximum lookback period: <strong>90 days</strong> from the current date</li>
+      <li>Rate limiting applies to Report APIs only; Metadata APIs are exempt</li>
+    </ul>
+
+    <h4>Rate Limit Response Headers</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Header</th><th>Description</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>X-Rate-Limit-Limit</code></td>
+            <td>Request allocation period</td>
+            <td><code>1d</code></td>
+          </tr>
+          <tr>
+            <td><code>X-Rate-Limit-Remaining</code></td>
+            <td>Remaining calls in current period</td>
+            <td><code>1847</code></td>
+          </tr>
+          <tr>
+            <td><code>X-Rate-Limit-Reset</code></td>
+            <td>Timestamp for quota reset</td>
+            <td><code>2024-01-15T00:00:00Z</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- COMMON RULES -->
+  <section id="common-rules">
+    <h2><span class="icon">📏</span>Common Rules for Report APIs</h2>
+    <p class="section-desc">All report endpoints share the following query period constraints based on the <code>group_by</code> parameter.</p>
+
+    <h4>Maximum Query Period by Group-By</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Group By</th><th>Max Period</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>default</code></td><td>90 days</td><td>No time-based grouping</td></tr>
+          <tr><td><code>daily</code></td><td>31 days</td><td>Group by day</td></tr>
+          <tr><td><code>hourly</code></td><td>7 days</td><td>Group by hour</td></tr>
+          <tr><td><code>weekly</code></td><td>28 days</td><td>Group by week</td></tr>
+          <tr><td><code>monthly</code></td><td>90 days</td><td>Group by month</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- SINGLE-TOUCH ATTRIBUTION -->
+  <section id="single-touch">
+    <h2><span class="icon">🎯</span>Single-Touch Attribution Report</h2>
+    <p class="section-desc">Retrieve install and conversion metrics by platform, ad partner, campaign, and cost model.</p>
+
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/analytics/report?appkey=<span class="param">{appkey}</span>&report_id=<span class="param">{report_id}</span>&begin_date=<span class="param">{start}</span>&end_date=<span class="param">{end}</span></span>
+      </div>
+    </div>
+
+    <h4>Parameters</h4>
+    <div class="table-wrap">
+      <div class="param-table">
+        <div class="param-row" style="border-bottom:1px solid var(--border);">
+          <div class="param-name">appkey <span class="required">required</span></div>
+          <div class="param-type">string</div>
+          <div class="param-desc">Application key from the Remaster console</div>
+        </div>
+        <div class="param-row" style="border-bottom:1px solid var(--border);">
+          <div class="param-name">report_id <span class="required">required</span></div>
+          <div class="param-type">string</div>
+          <div class="param-desc">Report identifier from the configured report</div>
+        </div>
+        <div class="param-row" style="border-bottom:1px solid var(--border);">
+          <div class="param-name">begin_date <span class="required">required</span></div>
+          <div class="param-type">datetime</div>
+          <div class="param-desc">Start datetime in ISO 8601 format<br><code>yyyy-MM-ddThh:mm:ss</code></div>
+        </div>
+        <div class="param-row" style="border-bottom:1px solid var(--border);">
+          <div class="param-name">end_date <span class="required">required</span></div>
+          <div class="param-type">datetime</div>
+          <div class="param-desc">End datetime in ISO 8601 format<br><code>yyyy-MM-ddThh:mm:ss</code></div>
+        </div>
+        <div class="param-row">
+          <div class="param-name">group_by <span class="optional">optional</span></div>
+          <div class="param-type">string</div>
+          <div class="param-desc">Time grouping: <code>daily</code>, <code>hourly</code>, <code>weekly</code>, <code>monthly</code></div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Available Metrics</h4>
+    <ul>
+      <li><code>new_install_click</code> — New installs via click attribution</li>
+      <li><code>new_install_view_through</code> — New installs via view-through attribution</li>
+      <li><code>re_install_click</code> — Re-installs via click attribution</li>
+      <li><code>purchase_count</code> — Total purchase events</li>
+      <li><code>total_gross</code> — Total revenue</li>
+      <li><code>refund_count</code> / <code>refund_gross</code> — Refund metrics</li>
+      <li><code>ctit_*</code> — Click-to-install time intervals</li>
+    </ul>
+
+    <h4>Sample Response</h4>
+    <pre>{
+  <span class="code-key">"data"</span>: {
+    <span class="code-key">"meta"</span>: {
+      <span class="code-key">"report_id"</span>: <span class="code-string">"example_id"</span>,
+      <span class="code-key">"report_name"</span>: <span class="code-string">"Sample Report"</span>,
+      <span class="code-key">"report_type"</span>: <span class="code-string">"Single-touch Attribution"</span>,
+      <span class="code-key">"query_param"</span>: {
+        <span class="code-key">"begin_date"</span>: <span class="code-string">"2019-03-01T00:00:00"</span>,
+        <span class="code-key">"end_date"</span>: <span class="code-string">"2019-03-03T00:00:00"</span>,
+        <span class="code-key">"group_by"</span>: [<span class="code-string">"daily"</span>, <span class="code-string">"platform"</span>]
+      }
+    },
+    <span class="code-key">"result"</span>: [
+      {
+        <span class="code-key">"daily"</span>: <span class="code-string">"2019-03-01"</span>,
+        <span class="code-key">"platform"</span>: <span class="code-string">"2"</span>,
+        <span class="code-key">"new_install_count"</span>: <span class="code-string">"98211"</span>
+      }
+    ]
+  },
+  <span class="code-key">"result"</span>: <span class="code-bool">true</span>,
+  <span class="code-key">"message"</span>: <span class="code-string">"ok"</span>,
+  <span class="code-key">"status_code"</span>: <span class="code-number">200</span>
+}</pre>
+  </section>
+
+  <hr>
+
+  <!-- EVENT ANALYTICS -->
+  <section id="event-analytics">
+    <h2><span class="icon">📈</span>General Event Analytics Report</h2>
+    <p class="section-desc">Track custom event data with flexible dimensioning and aggregation. Supports custom properties and dimensions for event-level data filtering.</p>
+
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/analytics/report?appkey=<span class="param">{appkey}</span>&report_id=<span class="param">{report_id}</span>&begin_date=<span class="param">{start}</span>&end_date=<span class="param">{end}</span></span>
+      </div>
+    </div>
+
+    <h4>Key Metrics</h4>
+    <ul>
+      <li><code>unique_view</code> — Unique users who triggered the event</li>
+      <li><code>page_view</code> — Total event occurrences</li>
+      <li><code>sum_value</code> — Aggregated event value</li>
+    </ul>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">📋</span>
+      <div>Event Analytics shares the same endpoint as Single-Touch Attribution. The <code>report_id</code> determines which report type is returned.</div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- RETENTION -->
+  <section id="retention">
+    <h2><span class="icon">🔄</span>Universal Retention Analytics Report</h2>
+    <p class="section-desc">Analyze user retention across events with cohort analysis spanning 0 to 30 day intervals.</p>
+
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/analytics/report?appkey=<span class="param">{appkey}</span>&report_id=<span class="param">{report_id}</span>&begin_date=<span class="param">{start}</span>&end_date=<span class="param">{end}</span></span>
+      </div>
+    </div>
+
+    <h4>Supported Dimensions</h4>
+    <ul>
+      <li><code>daily</code> — Retention by day</li>
+      <li><code>ad_partner</code> — Retention by advertising partner</li>
+      <li><code>platform</code> — Retention by platform (Android / iOS / Web)</li>
+      <li><code>tracker_id</code> — Retention by tracker link</li>
+    </ul>
+
+    <h4>Metrics</h4>
+    <ul>
+      <li><code>standard_user</code> — Base cohort size</li>
+      <li><code>retention_0d</code> through <code>retention_30d</code> — Retained users at each day interval</li>
+    </ul>
+  </section>
+
+  <hr>
+
+  <!-- FUNNEL -->
+  <section id="funnel">
+    <h2><span class="icon">🔻</span>Conversion Funnel Report</h2>
+    <p class="section-desc">Visualize user progression through defined event sequences to identify drop-off points and optimize conversion rates.</p>
+
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/analytics/report?appkey=<span class="param">{appkey}</span>&report_id=<span class="param">{report_id}</span>&begin_date=<span class="param">{start}</span>&end_date=<span class="param">{end}</span></span>
+      </div>
+    </div>
+
+    <h4>Example Funnel Flow</h4>
+    <div style="display:flex;align-items:center;gap:8px;margin:16px 0;flex-wrap:wrap;">
+      <span style="padding:8px 16px;border-radius:8px;background:rgba(59,130,246,0.12);font-size:13px;font-weight:600;color:var(--accent-light);">Login</span>
+      <span style="color:var(--text-muted);">→</span>
+      <span style="padding:8px 16px;border-radius:8px;background:rgba(139,92,246,0.12);font-size:13px;font-weight:600;color:var(--purple);">Home View</span>
+      <span style="color:var(--text-muted);">→</span>
+      <span style="padding:8px 16px;border-radius:8px;background:rgba(6,182,212,0.12);font-size:13px;font-weight:600;color:var(--cyan);">Category Browse</span>
+      <span style="color:var(--text-muted);">→</span>
+      <span style="padding:8px 16px;border-radius:8px;background:rgba(249,115,22,0.12);font-size:13px;font-weight:600;color:var(--orange);">Add to Cart</span>
+      <span style="color:var(--text-muted);">→</span>
+      <span style="padding:8px 16px;border-radius:8px;background:rgba(34,197,94,0.12);font-size:13px;font-weight:600;color:var(--green);">Purchase ✓</span>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- METADATA APIs -->
+  <section id="meta-adpartners">
+    <h2><span class="icon">🗂️</span>Metadata APIs</h2>
+    <p class="section-desc">Retrieve reference data for ad partners, campaigns, trackers, events, and properties. Metadata APIs are <strong>not subject to rate limiting</strong>.</p>
+
+    <h3>Ad Partner List</h3>
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/metadata/adPartnersMeta</span>
+      </div>
+    </div>
+    <p>Returns a list of connected advertising partners with identifiers and display names.</p>
+  </section>
+
+  <section id="meta-campaigns">
+    <h3>Campaign Metadata</h3>
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/AdCampaignMeta?appkey=<span class="param">{appkey}</span></span>
+      </div>
+    </div>
+    <p>Returns all campaigns including archived status and timestamps.</p>
+  </section>
+
+  <section id="meta-trackers">
+    <h3>Tracker Metadata</h3>
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/TrackersMeta?appkey=<span class="param">{appkey}</span></span>
+      </div>
+    </div>
+    <p>Provides tracking links with associated partners and campaigns.</p>
+  </section>
+
+  <section id="meta-events">
+    <h3>Adbrix Events</h3>
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/AdbrixEventsMeta?appkey=<span class="param">{appkey}</span></span>
+      </div>
+    </div>
+    <p>Lists predefined events with custom display name overrides.</p>
+  </section>
+
+  <section id="meta-properties">
+    <h3>Properties Metadata</h3>
+
+    <h4>V1 — Legacy (Reports before Feb 2021)</h4>
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/AdbrixPropertiesMeta?appkey=<span class="param">{appkey}</span></span>
+      </div>
+    </div>
+
+    <h4>V2 — Current Format</h4>
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/AdBrixPropertiesMetaV2?appkey=<span class="param">{appkey}</span></span>
+      </div>
+    </div>
+    <p>Returns event properties and user properties with display names. V2 provides improved naming conventions.</p>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div><strong>V1 Deprecation:</strong> The V1 endpoint is for legacy reports created before February 2021. Use V2 for all new integrations.</div>
+    </div>
+  </section>
+
+  <section id="meta-enums">
+    <h3>Enums Metadata</h3>
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/EnumsMeta</span>
+      </div>
+    </div>
+
+    <p>Maps numeric enum values to human-readable names.</p>
+
+    <h4>Platform</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Value</th><th>Name</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code></td><td>Unknown</td></tr>
+          <tr><td><code>1</code></td><td>Android</td></tr>
+          <tr><td><code>2</code></td><td>iOS</td></tr>
+          <tr><td><code>3</code></td><td>Web</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Cost Model</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Value</th><th>Name</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code></td><td>None</td></tr>
+          <tr><td><code>1</code></td><td>CPV</td></tr>
+          <tr><td><code>2</code></td><td>CPM</td></tr>
+          <tr><td><code>3</code></td><td>CPC</td></tr>
+          <tr><td><code>4</code></td><td>CPA</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Request Type</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Value</th><th>Name</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code></td><td>None</td></tr>
+          <tr><td><code>1</code></td><td>Impression</td></tr>
+          <tr><td><code>2</code></td><td>Click</td></tr>
+          <tr><td><code>3</code></td><td>Video</td></tr>
+          <tr><td><code>4</code></td><td>Playable</td></tr>
+          <tr><td><code>5</code></td><td>Invite</td></tr>
+          <tr><td><code>6</code></td><td>Coupon</td></tr>
+          <tr><td><code>7</code></td><td>Facebook</td></tr>
+          <tr><td><code>8</code></td><td>Google</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- LIVEBRIX -->
+  <section id="livebrix">
+    <h2><span class="icon">⚡</span>LiveBrix Real-Time API</h2>
+    <p class="section-desc">Access real-time engagement metrics including clicks, installs, and deeplink opens.</p>
+
+    <div class="endpoint-block">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="endpoint-url">https://oac.adbrix.io/api/v1/Analytics/LiveBrix/GetRealtimeAPIReport?appkey=<span class="param">{appkey}</span>&begin_date=<span class="param">{start}</span>&end_date=<span class="param">{end}</span>&timezone_offset=<span class="param">{offset}</span></span>
+      </div>
+    </div>
+
+    <h4>Parameters</h4>
+    <div class="table-wrap">
+      <div class="param-table">
+        <div class="param-row" style="border-bottom:1px solid var(--border);">
+          <div class="param-name">appkey <span class="required">required</span></div>
+          <div class="param-type">string</div>
+          <div class="param-desc">Application key</div>
+        </div>
+        <div class="param-row" style="border-bottom:1px solid var(--border);">
+          <div class="param-name">begin_date <span class="required">required</span></div>
+          <div class="param-type">datetime</div>
+          <div class="param-desc">Maximum <strong>7 days</strong> prior to current date</div>
+        </div>
+        <div class="param-row" style="border-bottom:1px solid var(--border);">
+          <div class="param-name">end_date <span class="required">required</span></div>
+          <div class="param-type">datetime</div>
+          <div class="param-desc">Maximum <strong>24 hours</strong> after begin_date</div>
+        </div>
+        <div class="param-row">
+          <div class="param-name">timezone_offset <span class="required">required</span></div>
+          <div class="param-type">string</div>
+          <div class="param-desc">URL-encoded UTC offset<br>e.g., <code>%2B09%3A00</code> for UTC+09:00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">🕐</span>
+      <div>The <code>timezone_offset</code> parameter must be URL-encoded. For KST (UTC+09:00), use <code>%2B09%3A00</code>.</div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- RESPONSE FORMAT -->
+  <section id="response-format">
+    <h2><span class="icon">📦</span>Response Format</h2>
+    <p class="section-desc">All API responses follow a standardized envelope format.</p>
+
+    <pre>{
+  <span class="code-key">"data"</span>: {
+    <span class="code-key">"meta"</span>: { <span class="code-comment">// Report configuration & query params</span> },
+    <span class="code-key">"result"</span>: [ <span class="code-comment">// Array of result rows</span> ]
+  },
+  <span class="code-key">"result"</span>: <span class="code-bool">true</span>,        <span class="code-comment">// Request success status</span>
+  <span class="code-key">"message"</span>: <span class="code-string">"ok"</span>,        <span class="code-comment">// Human-readable message</span>
+  <span class="code-key">"status_code"</span>: <span class="code-number">200</span>,    <span class="code-comment">// API status code</span>
+  <span class="code-key">"version"</span>: <span class="code-string">"0.0.x.xxxxx"</span> <span class="code-comment">// API version</span>
+}</pre>
+  </section>
+
+  <hr>
+
+  <!-- ERROR CODES -->
+  <section id="error-codes">
+    <h2><span class="icon">🚨</span>Error Codes</h2>
+    <p class="section-desc">Complete list of API response codes and their meanings.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Code</th><th>Status</th><th>Category</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>200</code></td>
+            <td><span class="status status-ok">200 OK</span></td>
+            <td>Success</td>
+            <td>Request completed successfully</td>
+          </tr>
+          <tr>
+            <td><code>40000</code></td>
+            <td><span class="status status-err">401</span></td>
+            <td>Auth Error</td>
+            <td>Invalid <code>access_token</code></td>
+          </tr>
+          <tr>
+            <td><code>40001</code></td>
+            <td><span class="status status-err">401</span></td>
+            <td>Auth Error</td>
+            <td>Token expired</td>
+          </tr>
+          <tr>
+            <td><code>40002</code></td>
+            <td><span class="status status-err">401</span></td>
+            <td>Auth Error</td>
+            <td>IP address not whitelisted</td>
+          </tr>
+          <tr>
+            <td><code>40003</code></td>
+            <td><span class="status status-err">401</span></td>
+            <td>Auth Error</td>
+            <td>Account deactivated</td>
+          </tr>
+          <tr>
+            <td><code>50000</code></td>
+            <td><span class="status status-err">500</span></td>
+            <td>Server Error</td>
+            <td>Internal server error</td>
+          </tr>
+          <tr>
+            <td><code>50001</code></td>
+            <td><span class="status status-err">500</span></td>
+            <td>Parameter Error</td>
+            <td>Missing required parameters</td>
+          </tr>
+          <tr>
+            <td><code>50002</code></td>
+            <td><span class="status status-err">500</span></td>
+            <td>Period Error</td>
+            <td>Query exceeds maximum allowed duration</td>
+          </tr>
+          <tr>
+            <td><code>50003</code></td>
+            <td><span class="status status-err">500</span></td>
+            <td>Period Error</td>
+            <td><code>begin_date</code> cannot equal or exceed <code>end_date</code></td>
+          </tr>
+          <tr>
+            <td><code>50004</code></td>
+            <td><span class="status status-err">500</span></td>
+            <td>Generic Error</td>
+            <td>Unhandled server exception</td>
+          </tr>
+          <tr>
+            <td><code>50005</code></td>
+            <td><span class="status status-err">500</span></td>
+            <td>Data Error</td>
+            <td>No values found for the given query</td>
+          </tr>
+          <tr>
+            <td><code>50006</code></td>
+            <td><span class="status status-warn">500</span></td>
+            <td>Timeout</td>
+            <td>Request exceeded 60-second time limit</td>
+          </tr>
+          <tr>
+            <td><code>429</code></td>
+            <td><span class="status status-limit">429</span></td>
+            <td>Rate Limit</td>
+            <td>Daily quota exceeded — retry after specified duration</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- DATA FORMAT -->
+  <section id="data-format">
+    <h2><span class="icon">📝</span>Data Format Notes</h2>
+    <p class="section-desc">Important notes about data formatting in API responses.</p>
+
+    <ul>
+      <li>Timestamps use <strong>ISO 8601</strong> format: <code>yyyy-MM-ddThh:mm:ss</code></li>
+      <li>Numeric values may be returned as <strong>strings</strong> — always parse before performing calculations</li>
+      <li><code>null</code> values indicate missing or unavailable data</li>
+      <li>Large numbers may use scientific notation (e.g., <code>2.4410150204E10</code>)</li>
+    </ul>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div><strong>Important:</strong> Always validate and parse numeric strings from API responses. Do not assume values will be returned as numeric types.</div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding:40px 0;color:var(--text-muted);font-size:13px;">
+    <p style="margin-bottom:8px;">
+      <strong style="color:var(--text-secondary);">DFINERY</strong> Report Open API Documentation
+    </p>
+    <p>Need help? Contact <a href="mailto:se.team@adbrixsupport.zendesk.com" style="color:var(--accent-light);text-decoration:none;">se.team@adbrixsupport.zendesk.com</a></p>
+    <p style="margin-top:12px;">© IGAWORKS Inc. All rights reserved.</p>
+  </div>
+
+</div>
+
+<!-- SIDEBAR ACTIVE STATE -->
+<script>
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-80px 0px -80% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>
