@@ -1,19 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" data-theme="light" data-lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DFINERY Report Open API Documentation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Pretendard+Variable&display=swap" rel="stylesheet">
 <style>
-  :root {
+  /* ===== THEME: LIGHT (default) ===== */
+  :root, [data-theme="light"] {
+    --bg: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-card: #f1f5f9;
+    --bg-code: #f8fafc;
+    --bg-inline: rgba(59,130,246,0.07);
+    --border: #e2e8f0;
+    --border-active: rgba(59,130,246,0.4);
+    --accent: #2563eb;
+    --accent-light: #3b82f6;
+    --green: #16a34a;
+    --orange: #ea580c;
+    --red: #dc2626;
+    --purple: #7c3aed;
+    --cyan: #0891b2;
+    --yellow: #ca8a04;
+    --text: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --sidebar-w: 280px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+    --code-key: #7c3aed;
+    --code-string: #16a34a;
+    --code-number: #ea580c;
+    --code-bool: #0891b2;
+    --code-comment: #94a3b8;
+    --method-get-bg: rgba(22,163,74,0.1);
+    --method-get-color: #16a34a;
+    --callout-info-bg: rgba(59,130,246,0.05);
+    --callout-info-border: rgba(59,130,246,0.15);
+    --callout-warn-bg: rgba(202,138,4,0.05);
+    --callout-warn-border: rgba(202,138,4,0.15);
+    --endpoint-header-bg: #f1f5f9;
+    --table-hover: rgba(0,0,0,0.02);
+    --toggle-bg: #e2e8f0;
+    --toggle-fg: #475569;
+    --badge-bg: rgba(37,99,235,0.08);
+    --badge-border: rgba(37,99,235,0.2);
+    --badge-color: #2563eb;
+    --status-ok-bg: rgba(22,163,74,0.1);
+    --status-ok-color: #16a34a;
+    --status-err-bg: rgba(220,38,38,0.1);
+    --status-err-color: #dc2626;
+    --status-warn-bg: rgba(202,138,4,0.1);
+    --status-warn-color: #ca8a04;
+    --status-limit-bg: rgba(234,88,12,0.1);
+    --status-limit-color: #ea580c;
+    --funnel-1: rgba(37,99,235,0.08);
+    --funnel-2: rgba(124,58,237,0.08);
+    --funnel-3: rgba(8,145,178,0.08);
+    --funnel-4: rgba(234,88,12,0.08);
+    --funnel-5: rgba(22,163,74,0.08);
+  }
+
+  /* ===== THEME: DARK ===== */
+  [data-theme="dark"] {
     --bg: #0f1117;
     --bg-secondary: #161822;
     --bg-card: #1c1e2e;
     --bg-code: #1a1c2e;
-    --bg-inline: rgba(59,130,246,0.08);
-    --border: rgba(255,255,255,0.06);
+    --bg-inline: rgba(59,130,246,0.1);
+    --border: rgba(255,255,255,0.08);
     --border-active: rgba(59,130,246,0.4);
     --accent: #3b82f6;
     --accent-light: #60a5fa;
@@ -26,102 +82,123 @@
     --text: #e2e8f0;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
-    --sidebar-w: 280px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3);
+    --code-key: #a78bfa;
+    --code-string: #22c55e;
+    --code-number: #f97316;
+    --code-bool: #22d3ee;
+    --code-comment: #64748b;
+    --method-get-bg: rgba(34,197,94,0.15);
+    --method-get-color: #22c55e;
+    --callout-info-bg: rgba(59,130,246,0.06);
+    --callout-info-border: rgba(59,130,246,0.15);
+    --callout-warn-bg: rgba(251,191,36,0.06);
+    --callout-warn-border: rgba(251,191,36,0.15);
+    --endpoint-header-bg: rgba(255,255,255,0.02);
+    --table-hover: rgba(255,255,255,0.02);
+    --toggle-bg: #1c1e2e;
+    --toggle-fg: #94a3b8;
+    --badge-bg: rgba(59,130,246,0.1);
+    --badge-border: rgba(59,130,246,0.25);
+    --badge-color: #60a5fa;
+    --status-ok-bg: rgba(34,197,94,0.12);
+    --status-ok-color: #22c55e;
+    --status-err-bg: rgba(239,68,68,0.12);
+    --status-err-color: #ef4444;
+    --status-warn-bg: rgba(251,191,36,0.12);
+    --status-warn-color: #fbbf24;
+    --status-limit-bg: rgba(249,115,22,0.12);
+    --status-limit-color: #f97316;
+    --funnel-1: rgba(59,130,246,0.12);
+    --funnel-2: rgba(139,92,246,0.12);
+    --funnel-3: rgba(6,182,212,0.12);
+    --funnel-4: rgba(249,115,22,0.12);
+    --funnel-5: rgba(34,197,94,0.12);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Pretendard Variable', 'Inter', -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    transition: background 0.3s, color 0.3s;
   }
+
+  /* ===== LANG TOGGLE ===== */
+  [data-lang="ko"] .en { display: none !important; }
+  [data-lang="en"] .ko { display: none !important; }
 
   /* ===== SIDEBAR ===== */
   .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: var(--sidebar-w);
-    height: 100vh;
+    position: fixed; top: 0; left: 0;
+    width: var(--sidebar-w); height: 100vh;
     background: var(--bg-secondary);
     border-right: 1px solid var(--border);
-    overflow-y: auto;
-    z-index: 100;
-    padding: 24px 0;
+    overflow-y: auto; z-index: 100; padding: 24px 0;
+    transition: background 0.3s, border-color 0.3s;
   }
-
   .sidebar::-webkit-scrollbar { width: 4px; }
   .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
   .sidebar-logo {
-    padding: 0 24px 20px;
+    padding: 0 24px 16px;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
-
   .sidebar-logo h1 {
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 18px; font-weight: 800;
     background: linear-gradient(135deg, var(--accent), var(--purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .sidebar-logo p {
+    font-size: 11px; color: var(--text-muted);
+    margin-top: 4px; text-transform: uppercase; letter-spacing: 1.5px;
   }
 
-  .sidebar-logo p {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+  /* Controls */
+  .sidebar-controls {
+    display: flex; gap: 8px; padding: 0 24px; margin-bottom: 16px;
+  }
+  .toggle-btn {
+    flex: 1; padding: 6px 10px;
+    border-radius: 8px; border: 1px solid var(--border);
+    background: var(--toggle-bg); color: var(--toggle-fg);
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 4px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .toggle-btn:hover {
+    border-color: var(--accent); color: var(--accent);
   }
 
   .nav-section {
-    padding: 8px 24px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-muted);
-    margin-top: 12px;
+    padding: 8px 24px; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-muted); margin-top: 12px;
   }
-
   .nav-link {
-    display: block;
-    padding: 8px 24px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.15s;
-    border-left: 2px solid transparent;
+    display: block; padding: 7px 24px; font-size: 13px;
+    color: var(--text-secondary); text-decoration: none;
+    transition: all 0.15s; border-left: 2px solid transparent;
   }
-
   .nav-link:hover {
-    color: var(--text);
-    background: rgba(59,130,246,0.05);
+    color: var(--text); background: var(--callout-info-bg);
     border-left-color: rgba(59,130,246,0.3);
   }
-
   .nav-link.active {
-    color: var(--accent-light);
-    background: rgba(59,130,246,0.08);
+    color: var(--accent-light); background: var(--callout-info-bg);
     border-left-color: var(--accent);
-  }
-
-  .nav-link.sub {
-    padding-left: 40px;
-    font-size: 12px;
   }
 
   /* ===== MAIN ===== */
   .main {
     margin-left: var(--sidebar-w);
-    max-width: 900px;
-    padding: 48px 64px 120px;
+    max-width: 900px; padding: 48px 64px 120px;
   }
 
   /* ===== HERO ===== */
@@ -130,371 +207,181 @@
     border-bottom: 1px solid var(--border);
     margin-bottom: 48px;
   }
-
   .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    background: rgba(59,130,246,0.1);
-    color: var(--accent-light);
-    border: 1px solid rgba(59,130,246,0.2);
-    margin-bottom: 20px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    background: var(--badge-bg); color: var(--badge-color);
+    border: 1px solid var(--badge-border); margin-bottom: 20px;
   }
-
   .hero h1 {
-    font-size: 40px;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 16px;
-    letter-spacing: -1px;
+    font-size: 40px; font-weight: 800; line-height: 1.2;
+    margin-bottom: 16px; letter-spacing: -1px;
   }
-
-  .hero p {
-    font-size: 17px;
-    color: var(--text-secondary);
-    max-width: 600px;
-    line-height: 1.7;
-  }
-
+  .hero p { font-size: 17px; color: var(--text-secondary); max-width: 600px; line-height: 1.7; }
   .hero-meta {
-    display: flex;
-    gap: 24px;
-    margin-top: 24px;
-    font-size: 13px;
-    color: var(--text-muted);
+    display: flex; gap: 24px; margin-top: 24px;
+    font-size: 13px; color: var(--text-muted); flex-wrap: wrap;
   }
-
-  .hero-meta span {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
 
   /* ===== SECTIONS ===== */
-  section {
-    margin-bottom: 56px;
-  }
-
+  section { margin-bottom: 56px; }
   h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    padding-top: 16px;
-    letter-spacing: -0.5px;
+    font-size: 28px; font-weight: 700; margin-bottom: 8px;
+    padding-top: 16px; letter-spacing: -0.5px;
   }
-
   h2 .icon { margin-right: 10px; }
-
-  h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin: 32px 0 12px;
-    color: var(--text);
-  }
-
-  h4 {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 20px 0 8px;
-    color: var(--accent-light);
-  }
-
-  .section-desc {
-    font-size: 15px;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-    line-height: 1.7;
-  }
-
+  h3 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; }
+  h4 { font-size: 15px; font-weight: 600; margin: 20px 0 8px; color: var(--accent-light); }
+  .section-desc { font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7; }
   p { margin-bottom: 12px; font-size: 15px; }
 
   /* ===== CODE ===== */
   .endpoint-block {
-    background: var(--bg-code);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 16px 0 20px;
+    background: var(--bg-code); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin: 16px 0 20px;
+    box-shadow: var(--shadow);
   }
-
   .endpoint-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 20px;
-    background: rgba(255,255,255,0.02);
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 20px; background: var(--endpoint-header-bg);
     border-bottom: 1px solid var(--border);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
   }
-
   .method {
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    padding: 4px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
   }
-
-  .method-get { background: rgba(34,197,94,0.15); color: var(--green); }
-  .method-post { background: rgba(59,130,246,0.15); color: var(--accent); }
-
-  .endpoint-url {
-    color: var(--text-secondary);
-    word-break: break-all;
-  }
-
-  .endpoint-url .param {
-    color: var(--orange);
-  }
+  .method-get { background: var(--method-get-bg); color: var(--method-get-color); }
+  .endpoint-url { color: var(--text-secondary); word-break: break-all; }
+  .endpoint-url .param { color: var(--orange); }
 
   pre {
-    background: var(--bg-code);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    overflow-x: auto;
-    margin: 16px 0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--text-secondary);
+    background: var(--bg-code); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; overflow-x: auto;
+    margin: 16px 0; font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.7; color: var(--text-secondary);
+    box-shadow: var(--shadow);
   }
-
-  code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-  }
-
+  code { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
   :not(pre) > code {
-    background: var(--bg-inline);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 13px;
-    color: var(--accent-light);
+    background: var(--bg-inline); padding: 2px 8px;
+    border-radius: 6px; font-size: 13px; color: var(--accent-light);
   }
-
-  .code-key { color: var(--purple); }
-  .code-string { color: var(--green); }
-  .code-number { color: var(--orange); }
-  .code-bool { color: var(--cyan); }
-  .code-comment { color: var(--text-muted); font-style: italic; }
+  .code-key { color: var(--code-key); }
+  .code-string { color: var(--code-string); }
+  .code-number { color: var(--code-number); }
+  .code-bool { color: var(--code-bool); }
+  .code-comment { color: var(--code-comment); font-style: italic; }
 
   /* ===== TABLES ===== */
   .table-wrap {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 16px 0 20px;
+    border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; margin: 16px 0 20px; box-shadow: var(--shadow);
   }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  thead {
-    background: rgba(59,130,246,0.06);
-  }
-
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead { background: var(--bg-card); }
   th {
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--border);
+    padding: 12px 16px; text-align: left; font-weight: 600;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-muted); border-bottom: 1px solid var(--border);
   }
-
   td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
     color: var(--text-secondary);
   }
-
   tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(255,255,255,0.02); }
-
-  td code {
-    font-size: 12px;
-  }
+  tr:hover td { background: var(--table-hover); }
+  td code { font-size: 12px; }
 
   /* ===== PARAM TABLE ===== */
-  .param-table {
-    margin: 16px 0 20px;
-  }
-
+  .param-table { margin: 16px 0 20px; }
   .param-row {
-    display: grid;
-    grid-template-columns: 160px 100px 1fr;
-    gap: 12px;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    align-items: start;
+    display: grid; grid-template-columns: 160px 100px 1fr;
+    gap: 12px; padding: 12px 16px;
+    border-bottom: 1px solid var(--border); font-size: 13px; align-items: start;
   }
-
   .param-row:last-child { border-bottom: none; }
-
-  .param-name {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .param-type {
-    color: var(--purple);
-    font-size: 12px;
-  }
-
-  .param-desc {
-    color: var(--text-secondary);
-  }
-
+  .param-name { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--text); }
+  .param-type { color: var(--purple); font-size: 12px; }
+  .param-desc { color: var(--text-secondary); }
   .required {
-    display: inline-block;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    background: rgba(239,68,68,0.12);
-    color: var(--red);
-    margin-left: 6px;
-    vertical-align: middle;
+    display: inline-block; padding: 1px 6px; border-radius: 4px;
+    font-size: 10px; font-weight: 600;
+    background: var(--status-err-bg); color: var(--status-err-color);
+    margin-left: 6px; vertical-align: middle;
   }
-
   .optional {
-    display: inline-block;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    background: rgba(100,116,139,0.15);
-    color: var(--text-muted);
-    margin-left: 6px;
-    vertical-align: middle;
+    display: inline-block; padding: 1px 6px; border-radius: 4px;
+    font-size: 10px; font-weight: 600;
+    background: rgba(100,116,139,0.12); color: var(--text-muted);
+    margin-left: 6px; vertical-align: middle;
   }
 
   /* ===== CARDS ===== */
-  .card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 16px 0 20px;
-  }
-
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0 20px; }
   .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    transition: border-color 0.2s;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; transition: border-color 0.2s;
+    box-shadow: var(--shadow);
   }
-
-  .card:hover {
-    border-color: var(--border-active);
-  }
-
-  .card-icon {
-    font-size: 28px;
-    margin-bottom: 12px;
-  }
-
-  .card h4 {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    margin: 0 0 6px;
-  }
-
-  .card p {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin: 0;
-  }
+  .card:hover { border-color: var(--border-active); }
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card h4 { font-size: 15px; font-weight: 600; color: var(--text); margin: 0 0 6px; }
+  .card p { font-size: 13px; color: var(--text-muted); margin: 0; }
 
   /* ===== CALLOUT ===== */
   .callout {
-    display: flex;
-    gap: 14px;
-    padding: 16px 20px;
-    border-radius: 12px;
-    margin: 16px 0 20px;
-    font-size: 14px;
-    line-height: 1.6;
+    display: flex; gap: 14px; padding: 16px 20px;
+    border-radius: 12px; margin: 16px 0 20px;
+    font-size: 14px; line-height: 1.6;
   }
-
   .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-
   .callout-info {
-    background: rgba(59,130,246,0.06);
-    border: 1px solid rgba(59,130,246,0.15);
+    background: var(--callout-info-bg);
+    border: 1px solid var(--callout-info-border);
     color: var(--text-secondary);
   }
-
   .callout-warn {
-    background: rgba(251,191,36,0.06);
-    border: 1px solid rgba(251,191,36,0.15);
+    background: var(--callout-warn-bg);
+    border: 1px solid var(--callout-warn-border);
     color: var(--text-secondary);
   }
 
-  .callout-danger {
-    background: rgba(239,68,68,0.06);
-    border: 1px solid rgba(239,68,68,0.15);
-    color: var(--text-secondary);
-  }
-
-  /* ===== STATUS BADGE ===== */
+  /* ===== STATUS ===== */
   .status {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 2px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
+  }
+  .status-ok { background: var(--status-ok-bg); color: var(--status-ok-color); }
+  .status-err { background: var(--status-err-bg); color: var(--status-err-color); }
+  .status-warn { background: var(--status-warn-bg); color: var(--status-warn-color); }
+  .status-limit { background: var(--status-limit-bg); color: var(--status-limit-color); }
+
+  hr { border: none; height: 1px; background: var(--border); margin: 40px 0; }
+  ul, ol { padding-left: 20px; margin: 8px 0 16px; }
+  li { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.6; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    background: var(--badge-bg); color: var(--badge-color);
+    border: 1px solid var(--badge-border);
   }
 
-  .status-ok { background: rgba(34,197,94,0.12); color: var(--green); }
-  .status-err { background: rgba(239,68,68,0.12); color: var(--red); }
-  .status-warn { background: rgba(251,191,36,0.12); color: var(--yellow); }
-  .status-limit { background: rgba(249,115,22,0.12); color: var(--orange); }
-
-  /* ===== DIVIDER ===== */
-  hr {
-    border: none;
-    height: 1px;
-    background: var(--border);
-    margin: 40px 0;
+  /* Funnel */
+  .funnel-step {
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
   }
 
-  /* ===== LISTS ===== */
-  ul, ol {
-    padding-left: 20px;
-    margin: 8px 0 16px;
-  }
-
-  li {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-    line-height: 1.6;
-  }
-
-  /* ===== SCROLLBAR ===== */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   ::-webkit-scrollbar-track { background: transparent; }
 
-  /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     .sidebar { display: none; }
     .main { margin-left: 0; padding: 24px; }
@@ -511,33 +398,49 @@
     <p>Report Open API</p>
   </div>
 
-  <div class="nav-section">Getting Started</div>
-  <a class="nav-link" href="#overview">Overview</a>
-  <a class="nav-link" href="#authentication">Authentication</a>
-  <a class="nav-link" href="#constraints">Constraints & Rate Limits</a>
+  <div class="sidebar-controls">
+    <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span>
+      <span class="ko">다크</span><span class="en">Dark</span>
+    </button>
+    <button class="toggle-btn" id="langToggle" onclick="toggleLang()">
+      <span>🌐</span>
+      <span id="langLabel">EN</span>
+    </button>
+  </div>
 
-  <div class="nav-section">Report APIs</div>
-  <a class="nav-link" href="#common-rules">Common Rules</a>
-  <a class="nav-link" href="#single-touch">Single-Touch Attribution</a>
-  <a class="nav-link" href="#event-analytics">Event Analytics</a>
-  <a class="nav-link" href="#retention">Retention Analytics</a>
-  <a class="nav-link" href="#funnel">Conversion Funnel</a>
+  <div class="nav-section ko">시작하기</div>
+  <div class="nav-section en">Getting Started</div>
+  <a class="nav-link" href="#overview"><span class="ko">개요</span><span class="en">Overview</span></a>
+  <a class="nav-link" href="#authentication"><span class="ko">인증</span><span class="en">Authentication</span></a>
+  <a class="nav-link" href="#constraints"><span class="ko">제약 사항 & 호출 제한</span><span class="en">Constraints & Rate Limits</span></a>
 
-  <div class="nav-section">Metadata APIs</div>
-  <a class="nav-link" href="#meta-adpartners">Ad Partners</a>
-  <a class="nav-link" href="#meta-campaigns">Campaigns</a>
-  <a class="nav-link" href="#meta-trackers">Trackers</a>
-  <a class="nav-link" href="#meta-events">Events</a>
-  <a class="nav-link" href="#meta-properties">Properties</a>
-  <a class="nav-link" href="#meta-enums">Enums</a>
+  <div class="nav-section ko">리포트 API</div>
+  <div class="nav-section en">Report APIs</div>
+  <a class="nav-link" href="#common-rules"><span class="ko">공통 규칙</span><span class="en">Common Rules</span></a>
+  <a class="nav-link" href="#single-touch"><span class="ko">싱글터치 어트리뷰션</span><span class="en">Single-Touch Attribution</span></a>
+  <a class="nav-link" href="#event-analytics"><span class="ko">이벤트 분석</span><span class="en">Event Analytics</span></a>
+  <a class="nav-link" href="#retention"><span class="ko">리텐션 분석</span><span class="en">Retention Analytics</span></a>
+  <a class="nav-link" href="#funnel"><span class="ko">전환 퍼널</span><span class="en">Conversion Funnel</span></a>
 
-  <div class="nav-section">Real-Time</div>
-  <a class="nav-link" href="#livebrix">LiveBrix API</a>
+  <div class="nav-section ko">메타데이터 API</div>
+  <div class="nav-section en">Metadata APIs</div>
+  <a class="nav-link" href="#meta-adpartners"><span class="ko">광고 파트너</span><span class="en">Ad Partners</span></a>
+  <a class="nav-link" href="#meta-campaigns"><span class="ko">캠페인</span><span class="en">Campaigns</span></a>
+  <a class="nav-link" href="#meta-trackers"><span class="ko">트래커</span><span class="en">Trackers</span></a>
+  <a class="nav-link" href="#meta-events"><span class="ko">이벤트</span><span class="en">Events</span></a>
+  <a class="nav-link" href="#meta-properties"><span class="ko">프로퍼티</span><span class="en">Properties</span></a>
+  <a class="nav-link" href="#meta-enums"><span class="ko">Enum 값</span><span class="en">Enums</span></a>
 
-  <div class="nav-section">Reference</div>
-  <a class="nav-link" href="#response-format">Response Format</a>
-  <a class="nav-link" href="#error-codes">Error Codes</a>
-  <a class="nav-link" href="#data-format">Data Format Notes</a>
+  <div class="nav-section ko">실시간</div>
+  <div class="nav-section en">Real-Time</div>
+  <a class="nav-link" href="#livebrix"><span class="ko">LiveBrix API</span><span class="en">LiveBrix API</span></a>
+
+  <div class="nav-section ko">레퍼런스</div>
+  <div class="nav-section en">Reference</div>
+  <a class="nav-link" href="#response-format"><span class="ko">응답 형식</span><span class="en">Response Format</span></a>
+  <a class="nav-link" href="#error-codes"><span class="ko">에러 코드</span><span class="en">Error Codes</span></a>
+  <a class="nav-link" href="#data-format"><span class="ko">데이터 형식 참고</span><span class="en">Data Format Notes</span></a>
 </nav>
 
 <!-- MAIN CONTENT -->
@@ -546,10 +449,13 @@
   <!-- HERO -->
   <div class="hero" id="overview">
     <div class="hero-badge">📡 REST API v1</div>
-    <h1>DFINERY Report<br>Open API</h1>
+    <h1>
+      <span class="ko">DFINERY 리포트<br>Open API</span>
+      <span class="en">DFINERY Report<br>Open API</span>
+    </h1>
     <p>
-      Access your Adbrix Remaster analytics data programmatically.
-      Retrieve report data configured in the console through simple REST API calls.
+      <span class="ko">Adbrix Remaster 콘솔에서 설정한 리포트 데이터를 API를 통해 프로그래밍 방식으로 조회할 수 있습니다.</span>
+      <span class="en">Access your Adbrix Remaster analytics data programmatically. Retrieve report data configured in the console through simple REST API calls.</span>
     </p>
     <div class="hero-meta">
       <span>🔗 Base URL: <code>https://oac.adbrix.io/api/v1/</code></span>
@@ -561,23 +467,23 @@
   <div class="card-grid">
     <div class="card">
       <div class="card-icon">📊</div>
-      <h4>Report APIs</h4>
-      <p>Single-Touch Attribution, Event Analytics, Retention, Conversion Funnel reports</p>
+      <h4><span class="ko">리포트 API</span><span class="en">Report APIs</span></h4>
+      <p><span class="ko">싱글터치 어트리뷰션, 이벤트 분석, 리텐션, 전환 퍼널 리포트</span><span class="en">Single-Touch Attribution, Event Analytics, Retention, Conversion Funnel reports</span></p>
     </div>
     <div class="card">
       <div class="card-icon">🗂️</div>
-      <h4>Metadata APIs</h4>
-      <p>Ad Partners, Campaigns, Trackers, Events, Properties, Enums</p>
+      <h4><span class="ko">메타데이터 API</span><span class="en">Metadata APIs</span></h4>
+      <p><span class="ko">광고 파트너, 캠페인, 트래커, 이벤트, 프로퍼티, Enum 조회</span><span class="en">Ad Partners, Campaigns, Trackers, Events, Properties, Enums</span></p>
     </div>
     <div class="card">
       <div class="card-icon">⚡</div>
-      <h4>LiveBrix Real-Time</h4>
-      <p>Real-time action reporting with 7-day lookback window</p>
+      <h4><span class="ko">LiveBrix 실시간</span><span class="en">LiveBrix Real-Time</span></h4>
+      <p><span class="ko">최대 7일 이내 실시간 액션 데이터 조회</span><span class="en">Real-time action reporting with 7-day lookback window</span></p>
     </div>
     <div class="card">
       <div class="card-icon">🔒</div>
-      <h4>Secure Access</h4>
-      <p>Token-based authentication with IP whitelisting and rate limiting</p>
+      <h4><span class="ko">보안 인증</span><span class="en">Secure Access</span></h4>
+      <p><span class="ko">토큰 기반 인증, IP 화이트리스트, 호출 제한 적용</span><span class="en">Token-based authentication with IP whitelisting and rate limiting</span></p>
     </div>
   </div>
 
@@ -585,20 +491,26 @@
 
   <!-- AUTHENTICATION -->
   <section id="authentication">
-    <h2><span class="icon">🔑</span>Authentication</h2>
-    <p class="section-desc">All API calls require an <code>access_token</code> for authentication. The token can be passed via the request header or as a query string parameter.</p>
+    <h2><span class="icon">🔑</span><span class="ko">인증</span><span class="en">Authentication</span></h2>
+    <p class="section-desc">
+      <span class="ko">모든 API 호출에는 <code>access_token</code>이 필요합니다. 요청 헤더 또는 쿼리 스트링 파라미터로 전달할 수 있습니다.</span>
+      <span class="en">All API calls require an <code>access_token</code> for authentication. The token can be passed via the request header or as a query string parameter.</span>
+    </p>
 
     <div class="callout callout-info">
       <span class="callout-icon">💡</span>
-      <div>Obtain your <code>access_token</code> from the Adbrix Remaster console. Contact your account manager if you need API access enabled.</div>
+      <div>
+        <span class="ko"><code>access_token</code>은 Adbrix Remaster 콘솔에서 발급받을 수 있습니다. API 접근 권한이 필요한 경우 담당 매니저에게 문의하세요.</span>
+        <span class="en">Obtain your <code>access_token</code> from the Adbrix Remaster console. Contact your account manager if you need API access enabled.</span>
+      </div>
     </div>
 
-    <h4>Header Authentication</h4>
+    <h4><span class="ko">헤더 인증</span><span class="en">Header Authentication</span></h4>
     <pre><span class="code-key">GET</span> /api/v1/analytics/report
 <span class="code-key">Host:</span> oac.adbrix.io
 <span class="code-key">access_token:</span> <span class="code-string">{your_access_token}</span></pre>
 
-    <h4>Query String Authentication</h4>
+    <h4><span class="ko">쿼리 스트링 인증</span><span class="en">Query String Authentication</span></h4>
     <pre><span class="code-key">GET</span> /api/v1/analytics/report?<span class="code-string">access_token={your_access_token}</span>&appkey={appkey}</pre>
   </section>
 
@@ -606,44 +518,42 @@
 
   <!-- CONSTRAINTS -->
   <section id="constraints">
-    <h2><span class="icon">⚠️</span>Constraints & Rate Limits</h2>
-    <p class="section-desc">Understanding the API limits and constraints for reliable integration.</p>
+    <h2><span class="icon">⚠️</span><span class="ko">제약 사항 & 호출 제한</span><span class="en">Constraints & Rate Limits</span></h2>
+    <p class="section-desc">
+      <span class="ko">안정적인 연동을 위해 API 제한 사항과 제약 조건을 확인하세요.</span>
+      <span class="en">Understanding the API limits and constraints for reliable integration.</span>
+    </p>
 
     <div class="callout callout-warn">
       <span class="callout-icon">⚡</span>
-      <div><strong>Rate Limit:</strong> API calls are limited to <strong>2,000 requests per day</strong>. Throttling is enforced to prevent system overload.</div>
+      <div>
+        <span class="ko"><strong>호출 제한:</strong> API 호출은 <strong>1일 2,000회</strong>로 제한됩니다. 과부하 방지를 위해 스로틀링이 적용됩니다.</span>
+        <span class="en"><strong>Rate Limit:</strong> API calls are limited to <strong>2,000 requests per day</strong>. Throttling is enforced to prevent system overload.</span>
+      </div>
     </div>
 
-    <h4>Key Constraints</h4>
+    <h4><span class="ko">주요 제약 사항</span><span class="en">Key Constraints</span></h4>
     <ul>
-      <li>Reports must first be configured in the Remaster console before API access</li>
-      <li>Only data from configured reports is available — new columns require report modification</li>
-      <li>Maximum lookback period: <strong>90 days</strong> from the current date</li>
-      <li>Rate limiting applies to Report APIs only; Metadata APIs are exempt</li>
+      <li><span class="ko">리포트는 Remaster 콘솔에서 먼저 설정해야 API로 조회 가능</span><span class="en">Reports must first be configured in the Remaster console before API access</span></li>
+      <li><span class="ko">설정된 리포트의 데이터만 조회 가능 — 새 컬럼 추가 시 리포트 수정 필요</span><span class="en">Only data from configured reports is available — new columns require report modification</span></li>
+      <li><span class="ko">최대 조회 기간: 현재 날짜로부터 <strong>90일</strong></span><span class="en">Maximum lookback period: <strong>90 days</strong> from the current date</span></li>
+      <li><span class="ko">호출 제한은 리포트 API에만 적용; 메타데이터 API는 제한 없음</span><span class="en">Rate limiting applies to Report APIs only; Metadata APIs are exempt</span></li>
     </ul>
 
-    <h4>Rate Limit Response Headers</h4>
+    <h4><span class="ko">호출 제한 응답 헤더</span><span class="en">Rate Limit Response Headers</span></h4>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Header</th><th>Description</th><th>Example</th></tr>
+          <tr>
+            <th><span class="ko">헤더</span><span class="en">Header</span></th>
+            <th><span class="ko">설명</span><span class="en">Description</span></th>
+            <th><span class="ko">예시</span><span class="en">Example</span></th>
+          </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><code>X-Rate-Limit-Limit</code></td>
-            <td>Request allocation period</td>
-            <td><code>1d</code></td>
-          </tr>
-          <tr>
-            <td><code>X-Rate-Limit-Remaining</code></td>
-            <td>Remaining calls in current period</td>
-            <td><code>1847</code></td>
-          </tr>
-          <tr>
-            <td><code>X-Rate-Limit-Reset</code></td>
-            <td>Timestamp for quota reset</td>
-            <td><code>2024-01-15T00:00:00Z</code></td>
-          </tr>
+          <tr><td><code>X-Rate-Limit-Limit</code></td><td><span class="ko">요청 할당 기간</span><span class="en">Request allocation period</span></td><td><code>1d</code></td></tr>
+          <tr><td><code>X-Rate-Limit-Remaining</code></td><td><span class="ko">현재 기간 내 잔여 호출 수</span><span class="en">Remaining calls in current period</span></td><td><code>1847</code></td></tr>
+          <tr><td><code>X-Rate-Limit-Reset</code></td><td><span class="ko">쿼터 리셋 시간</span><span class="en">Timestamp for quota reset</span></td><td><code>2024-01-15T00:00:00Z</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -653,21 +563,28 @@
 
   <!-- COMMON RULES -->
   <section id="common-rules">
-    <h2><span class="icon">📏</span>Common Rules for Report APIs</h2>
-    <p class="section-desc">All report endpoints share the following query period constraints based on the <code>group_by</code> parameter.</p>
+    <h2><span class="icon">📏</span><span class="ko">리포트 API 공통 규칙</span><span class="en">Common Rules for Report APIs</span></h2>
+    <p class="section-desc">
+      <span class="ko">모든 리포트 엔드포인트는 <code>group_by</code> 파라미터에 따라 아래의 최대 조회 기간 제한이 적용됩니다.</span>
+      <span class="en">All report endpoints share the following query period constraints based on the <code>group_by</code> parameter.</span>
+    </p>
 
-    <h4>Maximum Query Period by Group-By</h4>
+    <h4><span class="ko">Group-By별 최대 조회 기간</span><span class="en">Maximum Query Period by Group-By</span></h4>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Group By</th><th>Max Period</th><th>Description</th></tr>
+          <tr>
+            <th>Group By</th>
+            <th><span class="ko">최대 기간</span><span class="en">Max Period</span></th>
+            <th><span class="ko">설명</span><span class="en">Description</span></th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td><code>default</code></td><td>90 days</td><td>No time-based grouping</td></tr>
-          <tr><td><code>daily</code></td><td>31 days</td><td>Group by day</td></tr>
-          <tr><td><code>hourly</code></td><td>7 days</td><td>Group by hour</td></tr>
-          <tr><td><code>weekly</code></td><td>28 days</td><td>Group by week</td></tr>
-          <tr><td><code>monthly</code></td><td>90 days</td><td>Group by month</td></tr>
+          <tr><td><code>default</code></td><td><span class="ko">90일</span><span class="en">90 days</span></td><td><span class="ko">시간 그룹핑 없음</span><span class="en">No time-based grouping</span></td></tr>
+          <tr><td><code>daily</code></td><td><span class="ko">31일</span><span class="en">31 days</span></td><td><span class="ko">일별 그룹핑</span><span class="en">Group by day</span></td></tr>
+          <tr><td><code>hourly</code></td><td><span class="ko">7일</span><span class="en">7 days</span></td><td><span class="ko">시간별 그룹핑</span><span class="en">Group by hour</span></td></tr>
+          <tr><td><code>weekly</code></td><td><span class="ko">28일</span><span class="en">28 days</span></td><td><span class="ko">주별 그룹핑</span><span class="en">Group by week</span></td></tr>
+          <tr><td><code>monthly</code></td><td><span class="ko">90일</span><span class="en">90 days</span></td><td><span class="ko">월별 그룹핑</span><span class="en">Group by month</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -677,8 +594,11 @@
 
   <!-- SINGLE-TOUCH ATTRIBUTION -->
   <section id="single-touch">
-    <h2><span class="icon">🎯</span>Single-Touch Attribution Report</h2>
-    <p class="section-desc">Retrieve install and conversion metrics by platform, ad partner, campaign, and cost model.</p>
+    <h2><span class="icon">🎯</span><span class="ko">싱글터치 어트리뷰션 리포트</span><span class="en">Single-Touch Attribution Report</span></h2>
+    <p class="section-desc">
+      <span class="ko">플랫폼, 광고 파트너, 캠페인, 비용 모델별 설치 및 전환 지표를 조회합니다.</span>
+      <span class="en">Retrieve install and conversion metrics by platform, ad partner, campaign, and cost model.</span>
+    </p>
 
     <div class="endpoint-block">
       <div class="endpoint-header">
@@ -687,49 +607,49 @@
       </div>
     </div>
 
-    <h4>Parameters</h4>
+    <h4><span class="ko">파라미터</span><span class="en">Parameters</span></h4>
     <div class="table-wrap">
       <div class="param-table">
         <div class="param-row" style="border-bottom:1px solid var(--border);">
           <div class="param-name">appkey <span class="required">required</span></div>
           <div class="param-type">string</div>
-          <div class="param-desc">Application key from the Remaster console</div>
+          <div class="param-desc"><span class="ko">Remaster 콘솔에서 발급받은 앱키</span><span class="en">Application key from the Remaster console</span></div>
         </div>
         <div class="param-row" style="border-bottom:1px solid var(--border);">
           <div class="param-name">report_id <span class="required">required</span></div>
           <div class="param-type">string</div>
-          <div class="param-desc">Report identifier from the configured report</div>
+          <div class="param-desc"><span class="ko">설정된 리포트의 고유 식별자</span><span class="en">Report identifier from the configured report</span></div>
         </div>
         <div class="param-row" style="border-bottom:1px solid var(--border);">
           <div class="param-name">begin_date <span class="required">required</span></div>
           <div class="param-type">datetime</div>
-          <div class="param-desc">Start datetime in ISO 8601 format<br><code>yyyy-MM-ddThh:mm:ss</code></div>
+          <div class="param-desc"><span class="ko">ISO 8601 형식의 시작 일시</span><span class="en">Start datetime in ISO 8601 format</span><br><code>yyyy-MM-ddThh:mm:ss</code></div>
         </div>
         <div class="param-row" style="border-bottom:1px solid var(--border);">
           <div class="param-name">end_date <span class="required">required</span></div>
           <div class="param-type">datetime</div>
-          <div class="param-desc">End datetime in ISO 8601 format<br><code>yyyy-MM-ddThh:mm:ss</code></div>
+          <div class="param-desc"><span class="ko">ISO 8601 형식의 종료 일시</span><span class="en">End datetime in ISO 8601 format</span><br><code>yyyy-MM-ddThh:mm:ss</code></div>
         </div>
         <div class="param-row">
           <div class="param-name">group_by <span class="optional">optional</span></div>
           <div class="param-type">string</div>
-          <div class="param-desc">Time grouping: <code>daily</code>, <code>hourly</code>, <code>weekly</code>, <code>monthly</code></div>
+          <div class="param-desc"><span class="ko">시간 그룹핑: <code>daily</code>, <code>hourly</code>, <code>weekly</code>, <code>monthly</code></span><span class="en">Time grouping: <code>daily</code>, <code>hourly</code>, <code>weekly</code>, <code>monthly</code></span></div>
         </div>
       </div>
     </div>
 
-    <h4>Available Metrics</h4>
+    <h4><span class="ko">제공 지표</span><span class="en">Available Metrics</span></h4>
     <ul>
-      <li><code>new_install_click</code> — New installs via click attribution</li>
-      <li><code>new_install_view_through</code> — New installs via view-through attribution</li>
-      <li><code>re_install_click</code> — Re-installs via click attribution</li>
-      <li><code>purchase_count</code> — Total purchase events</li>
-      <li><code>total_gross</code> — Total revenue</li>
-      <li><code>refund_count</code> / <code>refund_gross</code> — Refund metrics</li>
-      <li><code>ctit_*</code> — Click-to-install time intervals</li>
+      <li><code>new_install_click</code> — <span class="ko">클릭 어트리뷰션 기반 신규 설치</span><span class="en">New installs via click attribution</span></li>
+      <li><code>new_install_view_through</code> — <span class="ko">뷰스루 어트리뷰션 기반 신규 설치</span><span class="en">New installs via view-through attribution</span></li>
+      <li><code>re_install_click</code> — <span class="ko">클릭 기반 재설치</span><span class="en">Re-installs via click attribution</span></li>
+      <li><code>purchase_count</code> — <span class="ko">총 구매 이벤트 수</span><span class="en">Total purchase events</span></li>
+      <li><code>total_gross</code> — <span class="ko">총 매출</span><span class="en">Total revenue</span></li>
+      <li><code>refund_count</code> / <code>refund_gross</code> — <span class="ko">환불 지표</span><span class="en">Refund metrics</span></li>
+      <li><code>ctit_*</code> — <span class="ko">클릭-설치 시간 간격 (CTIT)</span><span class="en">Click-to-install time intervals</span></li>
     </ul>
 
-    <h4>Sample Response</h4>
+    <h4><span class="ko">응답 예시</span><span class="en">Sample Response</span></h4>
     <pre>{
   <span class="code-key">"data"</span>: {
     <span class="code-key">"meta"</span>: {
@@ -760,8 +680,11 @@
 
   <!-- EVENT ANALYTICS -->
   <section id="event-analytics">
-    <h2><span class="icon">📈</span>General Event Analytics Report</h2>
-    <p class="section-desc">Track custom event data with flexible dimensioning and aggregation. Supports custom properties and dimensions for event-level data filtering.</p>
+    <h2><span class="icon">📈</span><span class="ko">일반 이벤트 분석 리포트</span><span class="en">General Event Analytics Report</span></h2>
+    <p class="section-desc">
+      <span class="ko">커스텀 이벤트 데이터를 유연한 차원(dimension)과 집계(aggregation)로 조회합니다. 커스텀 프로퍼티와 차원을 지원합니다.</span>
+      <span class="en">Track custom event data with flexible dimensioning and aggregation. Supports custom properties and dimensions for event-level data filtering.</span>
+    </p>
 
     <div class="endpoint-block">
       <div class="endpoint-header">
@@ -770,16 +693,19 @@
       </div>
     </div>
 
-    <h4>Key Metrics</h4>
+    <h4><span class="ko">주요 지표</span><span class="en">Key Metrics</span></h4>
     <ul>
-      <li><code>unique_view</code> — Unique users who triggered the event</li>
-      <li><code>page_view</code> — Total event occurrences</li>
-      <li><code>sum_value</code> — Aggregated event value</li>
+      <li><code>unique_view</code> — <span class="ko">이벤트를 발생시킨 고유 사용자 수</span><span class="en">Unique users who triggered the event</span></li>
+      <li><code>page_view</code> — <span class="ko">총 이벤트 발생 횟수</span><span class="en">Total event occurrences</span></li>
+      <li><code>sum_value</code> — <span class="ko">이벤트 값 합계</span><span class="en">Aggregated event value</span></li>
     </ul>
 
     <div class="callout callout-info">
       <span class="callout-icon">📋</span>
-      <div>Event Analytics shares the same endpoint as Single-Touch Attribution. The <code>report_id</code> determines which report type is returned.</div>
+      <div>
+        <span class="ko">이벤트 분석은 싱글터치 어트리뷰션과 동일한 엔드포인트를 사용합니다. <code>report_id</code>에 따라 반환되는 리포트 유형이 결정됩니다.</span>
+        <span class="en">Event Analytics shares the same endpoint as Single-Touch Attribution. The <code>report_id</code> determines which report type is returned.</span>
+      </div>
     </div>
   </section>
 
@@ -787,8 +713,11 @@
 
   <!-- RETENTION -->
   <section id="retention">
-    <h2><span class="icon">🔄</span>Universal Retention Analytics Report</h2>
-    <p class="section-desc">Analyze user retention across events with cohort analysis spanning 0 to 30 day intervals.</p>
+    <h2><span class="icon">🔄</span><span class="ko">유니버설 리텐션 분석 리포트</span><span class="en">Universal Retention Analytics Report</span></h2>
+    <p class="section-desc">
+      <span class="ko">이벤트 기준 사용자 리텐션을 0일~30일 간격의 코호트 분석으로 조회합니다.</span>
+      <span class="en">Analyze user retention across events with cohort analysis spanning 0 to 30 day intervals.</span>
+    </p>
 
     <div class="endpoint-block">
       <div class="endpoint-header">
@@ -797,18 +726,18 @@
       </div>
     </div>
 
-    <h4>Supported Dimensions</h4>
+    <h4><span class="ko">지원 차원(Dimension)</span><span class="en">Supported Dimensions</span></h4>
     <ul>
-      <li><code>daily</code> — Retention by day</li>
-      <li><code>ad_partner</code> — Retention by advertising partner</li>
-      <li><code>platform</code> — Retention by platform (Android / iOS / Web)</li>
-      <li><code>tracker_id</code> — Retention by tracker link</li>
+      <li><code>daily</code> — <span class="ko">일별 리텐션</span><span class="en">Retention by day</span></li>
+      <li><code>ad_partner</code> — <span class="ko">광고 파트너별 리텐션</span><span class="en">Retention by advertising partner</span></li>
+      <li><code>platform</code> — <span class="ko">플랫폼별 리텐션 (Android / iOS / Web)</span><span class="en">Retention by platform (Android / iOS / Web)</span></li>
+      <li><code>tracker_id</code> — <span class="ko">트래커 링크별 리텐션</span><span class="en">Retention by tracker link</span></li>
     </ul>
 
-    <h4>Metrics</h4>
+    <h4><span class="ko">지표</span><span class="en">Metrics</span></h4>
     <ul>
-      <li><code>standard_user</code> — Base cohort size</li>
-      <li><code>retention_0d</code> through <code>retention_30d</code> — Retained users at each day interval</li>
+      <li><code>standard_user</code> — <span class="ko">기준 코호트 규모</span><span class="en">Base cohort size</span></li>
+      <li><code>retention_0d</code> ~ <code>retention_30d</code> — <span class="ko">일별 잔존 사용자 수</span><span class="en">Retained users at each day interval</span></li>
     </ul>
   </section>
 
@@ -816,8 +745,11 @@
 
   <!-- FUNNEL -->
   <section id="funnel">
-    <h2><span class="icon">🔻</span>Conversion Funnel Report</h2>
-    <p class="section-desc">Visualize user progression through defined event sequences to identify drop-off points and optimize conversion rates.</p>
+    <h2><span class="icon">🔻</span><span class="ko">전환 퍼널 리포트</span><span class="en">Conversion Funnel Report</span></h2>
+    <p class="section-desc">
+      <span class="ko">정의된 이벤트 시퀀스에 따른 사용자 전환 흐름을 시각화하여 이탈 지점을 파악하고 전환율을 최적화합니다.</span>
+      <span class="en">Visualize user progression through defined event sequences to identify drop-off points and optimize conversion rates.</span>
+    </p>
 
     <div class="endpoint-block">
       <div class="endpoint-header">
@@ -826,17 +758,27 @@
       </div>
     </div>
 
-    <h4>Example Funnel Flow</h4>
+    <h4><span class="ko">퍼널 흐름 예시</span><span class="en">Example Funnel Flow</span></h4>
     <div style="display:flex;align-items:center;gap:8px;margin:16px 0;flex-wrap:wrap;">
-      <span style="padding:8px 16px;border-radius:8px;background:rgba(59,130,246,0.12);font-size:13px;font-weight:600;color:var(--accent-light);">Login</span>
+      <span class="funnel-step" style="background:var(--funnel-1);color:var(--accent);">
+        <span class="ko">로그인</span><span class="en">Login</span>
+      </span>
       <span style="color:var(--text-muted);">→</span>
-      <span style="padding:8px 16px;border-radius:8px;background:rgba(139,92,246,0.12);font-size:13px;font-weight:600;color:var(--purple);">Home View</span>
+      <span class="funnel-step" style="background:var(--funnel-2);color:var(--purple);">
+        <span class="ko">홈 화면</span><span class="en">Home View</span>
+      </span>
       <span style="color:var(--text-muted);">→</span>
-      <span style="padding:8px 16px;border-radius:8px;background:rgba(6,182,212,0.12);font-size:13px;font-weight:600;color:var(--cyan);">Category Browse</span>
+      <span class="funnel-step" style="background:var(--funnel-3);color:var(--cyan);">
+        <span class="ko">카테고리 탐색</span><span class="en">Category Browse</span>
+      </span>
       <span style="color:var(--text-muted);">→</span>
-      <span style="padding:8px 16px;border-radius:8px;background:rgba(249,115,22,0.12);font-size:13px;font-weight:600;color:var(--orange);">Add to Cart</span>
+      <span class="funnel-step" style="background:var(--funnel-4);color:var(--orange);">
+        <span class="ko">장바구니 추가</span><span class="en">Add to Cart</span>
+      </span>
       <span style="color:var(--text-muted);">→</span>
-      <span style="padding:8px 16px;border-radius:8px;background:rgba(34,197,94,0.12);font-size:13px;font-weight:600;color:var(--green);">Purchase ✓</span>
+      <span class="funnel-step" style="background:var(--funnel-5);color:var(--green);">
+        <span class="ko">구매 완료 ✓</span><span class="en">Purchase ✓</span>
+      </span>
     </div>
   </section>
 
@@ -844,56 +786,59 @@
 
   <!-- METADATA APIs -->
   <section id="meta-adpartners">
-    <h2><span class="icon">🗂️</span>Metadata APIs</h2>
-    <p class="section-desc">Retrieve reference data for ad partners, campaigns, trackers, events, and properties. Metadata APIs are <strong>not subject to rate limiting</strong>.</p>
+    <h2><span class="icon">🗂️</span><span class="ko">메타데이터 API</span><span class="en">Metadata APIs</span></h2>
+    <p class="section-desc">
+      <span class="ko">광고 파트너, 캠페인, 트래커, 이벤트, 프로퍼티 등의 참조 데이터를 조회합니다. 메타데이터 API는 <strong>호출 제한이 적용되지 않습니다.</strong></span>
+      <span class="en">Retrieve reference data for ad partners, campaigns, trackers, events, and properties. Metadata APIs are <strong>not subject to rate limiting</strong>.</span>
+    </p>
 
-    <h3>Ad Partner List</h3>
+    <h3><span class="ko">광고 파트너 목록</span><span class="en">Ad Partner List</span></h3>
     <div class="endpoint-block">
       <div class="endpoint-header">
         <span class="method method-get">GET</span>
         <span class="endpoint-url">https://oac.adbrix.io/api/v1/metadata/adPartnersMeta</span>
       </div>
     </div>
-    <p>Returns a list of connected advertising partners with identifiers and display names.</p>
+    <p><span class="ko">연동된 광고 파트너 목록을 식별자와 표시 이름으로 반환합니다.</span><span class="en">Returns a list of connected advertising partners with identifiers and display names.</span></p>
   </section>
 
   <section id="meta-campaigns">
-    <h3>Campaign Metadata</h3>
+    <h3><span class="ko">캠페인 메타데이터</span><span class="en">Campaign Metadata</span></h3>
     <div class="endpoint-block">
       <div class="endpoint-header">
         <span class="method method-get">GET</span>
         <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/AdCampaignMeta?appkey=<span class="param">{appkey}</span></span>
       </div>
     </div>
-    <p>Returns all campaigns including archived status and timestamps.</p>
+    <p><span class="ko">아카이브 상태와 타임스탬프를 포함한 전체 캠페인 목록을 반환합니다.</span><span class="en">Returns all campaigns including archived status and timestamps.</span></p>
   </section>
 
   <section id="meta-trackers">
-    <h3>Tracker Metadata</h3>
+    <h3><span class="ko">트래커 메타데이터</span><span class="en">Tracker Metadata</span></h3>
     <div class="endpoint-block">
       <div class="endpoint-header">
         <span class="method method-get">GET</span>
         <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/TrackersMeta?appkey=<span class="param">{appkey}</span></span>
       </div>
     </div>
-    <p>Provides tracking links with associated partners and campaigns.</p>
+    <p><span class="ko">연동된 파트너 및 캠페인 정보가 포함된 트래킹 링크 목록을 제공합니다.</span><span class="en">Provides tracking links with associated partners and campaigns.</span></p>
   </section>
 
   <section id="meta-events">
-    <h3>Adbrix Events</h3>
+    <h3><span class="ko">Adbrix 이벤트</span><span class="en">Adbrix Events</span></h3>
     <div class="endpoint-block">
       <div class="endpoint-header">
         <span class="method method-get">GET</span>
         <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/AdbrixEventsMeta?appkey=<span class="param">{appkey}</span></span>
       </div>
     </div>
-    <p>Lists predefined events with custom display name overrides.</p>
+    <p><span class="ko">커스텀 표시 이름이 적용된 사전 정의 이벤트 목록을 반환합니다.</span><span class="en">Lists predefined events with custom display name overrides.</span></p>
   </section>
 
   <section id="meta-properties">
-    <h3>Properties Metadata</h3>
+    <h3><span class="ko">프로퍼티 메타데이터</span><span class="en">Properties Metadata</span></h3>
 
-    <h4>V1 — Legacy (Reports before Feb 2021)</h4>
+    <h4><span class="ko">V1 — 레거시 (2021년 2월 이전 리포트)</span><span class="en">V1 — Legacy (Reports before Feb 2021)</span></h4>
     <div class="endpoint-block">
       <div class="endpoint-header">
         <span class="method method-get">GET</span>
@@ -901,36 +846,38 @@
       </div>
     </div>
 
-    <h4>V2 — Current Format</h4>
+    <h4><span class="ko">V2 — 현재 형식</span><span class="en">V2 — Current Format</span></h4>
     <div class="endpoint-block">
       <div class="endpoint-header">
         <span class="method method-get">GET</span>
         <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/AdBrixPropertiesMetaV2?appkey=<span class="param">{appkey}</span></span>
       </div>
     </div>
-    <p>Returns event properties and user properties with display names. V2 provides improved naming conventions.</p>
+    <p><span class="ko">이벤트 프로퍼티와 유저 프로퍼티를 표시 이름과 함께 반환합니다. V2는 개선된 네이밍 규칙을 사용합니다.</span><span class="en">Returns event properties and user properties with display names. V2 provides improved naming conventions.</span></p>
 
     <div class="callout callout-warn">
       <span class="callout-icon">⚠️</span>
-      <div><strong>V1 Deprecation:</strong> The V1 endpoint is for legacy reports created before February 2021. Use V2 for all new integrations.</div>
+      <div>
+        <span class="ko"><strong>V1 지원 중단 예정:</strong> V1 엔드포인트는 2021년 2월 이전에 생성된 레거시 리포트용입니다. 신규 연동 시 V2를 사용하세요.</span>
+        <span class="en"><strong>V1 Deprecation:</strong> The V1 endpoint is for legacy reports created before February 2021. Use V2 for all new integrations.</span>
+      </div>
     </div>
   </section>
 
   <section id="meta-enums">
-    <h3>Enums Metadata</h3>
+    <h3><span class="ko">Enum 메타데이터</span><span class="en">Enums Metadata</span></h3>
     <div class="endpoint-block">
       <div class="endpoint-header">
         <span class="method method-get">GET</span>
         <span class="endpoint-url">https://oac.adbrix.io/api/v1/MetaData/EnumsMeta</span>
       </div>
     </div>
+    <p><span class="ko">숫자형 Enum 값을 사람이 읽을 수 있는 이름으로 매핑합니다.</span><span class="en">Maps numeric enum values to human-readable names.</span></p>
 
-    <p>Maps numeric enum values to human-readable names.</p>
-
-    <h4>Platform</h4>
+    <h4><span class="ko">플랫폼</span><span class="en">Platform</span></h4>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Value</th><th>Name</th></tr></thead>
+        <thead><tr><th><span class="ko">값</span><span class="en">Value</span></th><th><span class="ko">이름</span><span class="en">Name</span></th></tr></thead>
         <tbody>
           <tr><td><code>0</code></td><td>Unknown</td></tr>
           <tr><td><code>1</code></td><td>Android</td></tr>
@@ -940,10 +887,10 @@
       </table>
     </div>
 
-    <h4>Cost Model</h4>
+    <h4><span class="ko">비용 모델</span><span class="en">Cost Model</span></h4>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Value</th><th>Name</th></tr></thead>
+        <thead><tr><th><span class="ko">값</span><span class="en">Value</span></th><th><span class="ko">이름</span><span class="en">Name</span></th></tr></thead>
         <tbody>
           <tr><td><code>0</code></td><td>None</td></tr>
           <tr><td><code>1</code></td><td>CPV</td></tr>
@@ -954,10 +901,10 @@
       </table>
     </div>
 
-    <h4>Request Type</h4>
+    <h4><span class="ko">요청 유형</span><span class="en">Request Type</span></h4>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Value</th><th>Name</th></tr></thead>
+        <thead><tr><th><span class="ko">값</span><span class="en">Value</span></th><th><span class="ko">이름</span><span class="en">Name</span></th></tr></thead>
         <tbody>
           <tr><td><code>0</code></td><td>None</td></tr>
           <tr><td><code>1</code></td><td>Impression</td></tr>
@@ -977,8 +924,11 @@
 
   <!-- LIVEBRIX -->
   <section id="livebrix">
-    <h2><span class="icon">⚡</span>LiveBrix Real-Time API</h2>
-    <p class="section-desc">Access real-time engagement metrics including clicks, installs, and deeplink opens.</p>
+    <h2><span class="icon">⚡</span>LiveBrix <span class="ko">실시간 API</span><span class="en">Real-Time API</span></h2>
+    <p class="section-desc">
+      <span class="ko">클릭, 설치, 딥링크 오픈을 포함한 실시간 인게이지먼트 지표를 조회합니다.</span>
+      <span class="en">Access real-time engagement metrics including clicks, installs, and deeplink opens.</span>
+    </p>
 
     <div class="endpoint-block">
       <div class="endpoint-header">
@@ -987,35 +937,38 @@
       </div>
     </div>
 
-    <h4>Parameters</h4>
+    <h4><span class="ko">파라미터</span><span class="en">Parameters</span></h4>
     <div class="table-wrap">
       <div class="param-table">
         <div class="param-row" style="border-bottom:1px solid var(--border);">
           <div class="param-name">appkey <span class="required">required</span></div>
           <div class="param-type">string</div>
-          <div class="param-desc">Application key</div>
+          <div class="param-desc"><span class="ko">앱키</span><span class="en">Application key</span></div>
         </div>
         <div class="param-row" style="border-bottom:1px solid var(--border);">
           <div class="param-name">begin_date <span class="required">required</span></div>
           <div class="param-type">datetime</div>
-          <div class="param-desc">Maximum <strong>7 days</strong> prior to current date</div>
+          <div class="param-desc"><span class="ko">현재로부터 최대 <strong>7일</strong> 이전</span><span class="en">Maximum <strong>7 days</strong> prior to current date</span></div>
         </div>
         <div class="param-row" style="border-bottom:1px solid var(--border);">
           <div class="param-name">end_date <span class="required">required</span></div>
           <div class="param-type">datetime</div>
-          <div class="param-desc">Maximum <strong>24 hours</strong> after begin_date</div>
+          <div class="param-desc"><span class="ko">begin_date로부터 최대 <strong>24시간</strong> 이후</span><span class="en">Maximum <strong>24 hours</strong> after begin_date</span></div>
         </div>
         <div class="param-row">
           <div class="param-name">timezone_offset <span class="required">required</span></div>
           <div class="param-type">string</div>
-          <div class="param-desc">URL-encoded UTC offset<br>e.g., <code>%2B09%3A00</code> for UTC+09:00</div>
+          <div class="param-desc"><span class="ko">URL 인코딩된 UTC 오프셋</span><span class="en">URL-encoded UTC offset</span><br><span class="ko">예시: KST(UTC+09:00) → <code>%2B09%3A00</code></span><span class="en">e.g., <code>%2B09%3A00</code> for UTC+09:00</span></div>
         </div>
       </div>
     </div>
 
     <div class="callout callout-info">
       <span class="callout-icon">🕐</span>
-      <div>The <code>timezone_offset</code> parameter must be URL-encoded. For KST (UTC+09:00), use <code>%2B09%3A00</code>.</div>
+      <div>
+        <span class="ko"><code>timezone_offset</code> 파라미터는 반드시 URL 인코딩해야 합니다. KST(UTC+09:00)의 경우 <code>%2B09%3A00</code>을 사용하세요.</span>
+        <span class="en">The <code>timezone_offset</code> parameter must be URL-encoded. For KST (UTC+09:00), use <code>%2B09%3A00</code>.</span>
+      </div>
     </div>
   </section>
 
@@ -1023,18 +976,21 @@
 
   <!-- RESPONSE FORMAT -->
   <section id="response-format">
-    <h2><span class="icon">📦</span>Response Format</h2>
-    <p class="section-desc">All API responses follow a standardized envelope format.</p>
+    <h2><span class="icon">📦</span><span class="ko">응답 형식</span><span class="en">Response Format</span></h2>
+    <p class="section-desc">
+      <span class="ko">모든 API 응답은 아래의 표준 엔벨로프 형식을 따릅니다.</span>
+      <span class="en">All API responses follow a standardized envelope format.</span>
+    </p>
 
     <pre>{
   <span class="code-key">"data"</span>: {
-    <span class="code-key">"meta"</span>: { <span class="code-comment">// Report configuration & query params</span> },
-    <span class="code-key">"result"</span>: [ <span class="code-comment">// Array of result rows</span> ]
+    <span class="code-key">"meta"</span>: { <span class="code-comment">// <span class="ko">리포트 설정 및 쿼리 파라미터</span><span class="en">Report configuration & query params</span></span> },
+    <span class="code-key">"result"</span>: [ <span class="code-comment">// <span class="ko">결과 데이터 배열</span><span class="en">Array of result rows</span></span> ]
   },
-  <span class="code-key">"result"</span>: <span class="code-bool">true</span>,        <span class="code-comment">// Request success status</span>
-  <span class="code-key">"message"</span>: <span class="code-string">"ok"</span>,        <span class="code-comment">// Human-readable message</span>
-  <span class="code-key">"status_code"</span>: <span class="code-number">200</span>,    <span class="code-comment">// API status code</span>
-  <span class="code-key">"version"</span>: <span class="code-string">"0.0.x.xxxxx"</span> <span class="code-comment">// API version</span>
+  <span class="code-key">"result"</span>: <span class="code-bool">true</span>,        <span class="code-comment">// <span class="ko">요청 성공 여부</span><span class="en">Request success status</span></span>
+  <span class="code-key">"message"</span>: <span class="code-string">"ok"</span>,        <span class="code-comment">// <span class="ko">결과 메시지</span><span class="en">Human-readable message</span></span>
+  <span class="code-key">"status_code"</span>: <span class="code-number">200</span>,    <span class="code-comment">// <span class="ko">API 상태 코드</span><span class="en">API status code</span></span>
+  <span class="code-key">"version"</span>: <span class="code-string">"0.0.x.xxxxx"</span> <span class="code-comment">// <span class="ko">API 버전</span><span class="en">API version</span></span>
 }</pre>
   </section>
 
@@ -1042,92 +998,87 @@
 
   <!-- ERROR CODES -->
   <section id="error-codes">
-    <h2><span class="icon">🚨</span>Error Codes</h2>
-    <p class="section-desc">Complete list of API response codes and their meanings.</p>
+    <h2><span class="icon">🚨</span><span class="ko">에러 코드</span><span class="en">Error Codes</span></h2>
+    <p class="section-desc">
+      <span class="ko">API 응답 코드 전체 목록과 각 코드의 의미입니다.</span>
+      <span class="en">Complete list of API response codes and their meanings.</span>
+    </p>
 
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Code</th><th>Status</th><th>Category</th><th>Description</th></tr>
+          <tr>
+            <th><span class="ko">코드</span><span class="en">Code</span></th>
+            <th><span class="ko">HTTP</span><span class="en">Status</span></th>
+            <th><span class="ko">분류</span><span class="en">Category</span></th>
+            <th><span class="ko">설명</span><span class="en">Description</span></th>
+          </tr>
         </thead>
         <tbody>
           <tr>
-            <td><code>200</code></td>
-            <td><span class="status status-ok">200 OK</span></td>
-            <td>Success</td>
-            <td>Request completed successfully</td>
+            <td><code>200</code></td><td><span class="status status-ok">200 OK</span></td>
+            <td><span class="ko">성공</span><span class="en">Success</span></td>
+            <td><span class="ko">요청이 성공적으로 완료됨</span><span class="en">Request completed successfully</span></td>
           </tr>
           <tr>
-            <td><code>40000</code></td>
-            <td><span class="status status-err">401</span></td>
-            <td>Auth Error</td>
-            <td>Invalid <code>access_token</code></td>
+            <td><code>40000</code></td><td><span class="status status-err">401</span></td>
+            <td><span class="ko">인증 오류</span><span class="en">Auth Error</span></td>
+            <td><span class="ko">유효하지 않은 <code>access_token</code></span><span class="en">Invalid <code>access_token</code></span></td>
           </tr>
           <tr>
-            <td><code>40001</code></td>
-            <td><span class="status status-err">401</span></td>
-            <td>Auth Error</td>
-            <td>Token expired</td>
+            <td><code>40001</code></td><td><span class="status status-err">401</span></td>
+            <td><span class="ko">인증 오류</span><span class="en">Auth Error</span></td>
+            <td><span class="ko">토큰 만료</span><span class="en">Token expired</span></td>
           </tr>
           <tr>
-            <td><code>40002</code></td>
-            <td><span class="status status-err">401</span></td>
-            <td>Auth Error</td>
-            <td>IP address not whitelisted</td>
+            <td><code>40002</code></td><td><span class="status status-err">401</span></td>
+            <td><span class="ko">인증 오류</span><span class="en">Auth Error</span></td>
+            <td><span class="ko">IP 주소가 화이트리스트에 없음</span><span class="en">IP address not whitelisted</span></td>
           </tr>
           <tr>
-            <td><code>40003</code></td>
-            <td><span class="status status-err">401</span></td>
-            <td>Auth Error</td>
-            <td>Account deactivated</td>
+            <td><code>40003</code></td><td><span class="status status-err">401</span></td>
+            <td><span class="ko">인증 오류</span><span class="en">Auth Error</span></td>
+            <td><span class="ko">계정 비활성화</span><span class="en">Account deactivated</span></td>
           </tr>
           <tr>
-            <td><code>50000</code></td>
-            <td><span class="status status-err">500</span></td>
-            <td>Server Error</td>
-            <td>Internal server error</td>
+            <td><code>50000</code></td><td><span class="status status-err">500</span></td>
+            <td><span class="ko">서버 오류</span><span class="en">Server Error</span></td>
+            <td><span class="ko">내부 서버 오류</span><span class="en">Internal server error</span></td>
           </tr>
           <tr>
-            <td><code>50001</code></td>
-            <td><span class="status status-err">500</span></td>
-            <td>Parameter Error</td>
-            <td>Missing required parameters</td>
+            <td><code>50001</code></td><td><span class="status status-err">500</span></td>
+            <td><span class="ko">파라미터 오류</span><span class="en">Parameter Error</span></td>
+            <td><span class="ko">필수 파라미터 누락</span><span class="en">Missing required parameters</span></td>
           </tr>
           <tr>
-            <td><code>50002</code></td>
-            <td><span class="status status-err">500</span></td>
-            <td>Period Error</td>
-            <td>Query exceeds maximum allowed duration</td>
+            <td><code>50002</code></td><td><span class="status status-err">500</span></td>
+            <td><span class="ko">기간 오류</span><span class="en">Period Error</span></td>
+            <td><span class="ko">최대 허용 조회 기간 초과</span><span class="en">Query exceeds maximum allowed duration</span></td>
           </tr>
           <tr>
-            <td><code>50003</code></td>
-            <td><span class="status status-err">500</span></td>
-            <td>Period Error</td>
-            <td><code>begin_date</code> cannot equal or exceed <code>end_date</code></td>
+            <td><code>50003</code></td><td><span class="status status-err">500</span></td>
+            <td><span class="ko">기간 오류</span><span class="en">Period Error</span></td>
+            <td><span class="ko"><code>begin_date</code>가 <code>end_date</code>와 같거나 이후</span><span class="en"><code>begin_date</code> cannot equal or exceed <code>end_date</code></span></td>
           </tr>
           <tr>
-            <td><code>50004</code></td>
-            <td><span class="status status-err">500</span></td>
-            <td>Generic Error</td>
-            <td>Unhandled server exception</td>
+            <td><code>50004</code></td><td><span class="status status-err">500</span></td>
+            <td><span class="ko">일반 오류</span><span class="en">Generic Error</span></td>
+            <td><span class="ko">처리되지 않은 서버 예외</span><span class="en">Unhandled server exception</span></td>
           </tr>
           <tr>
-            <td><code>50005</code></td>
-            <td><span class="status status-err">500</span></td>
-            <td>Data Error</td>
-            <td>No values found for the given query</td>
+            <td><code>50005</code></td><td><span class="status status-err">500</span></td>
+            <td><span class="ko">데이터 오류</span><span class="en">Data Error</span></td>
+            <td><span class="ko">조회 조건에 해당하는 데이터 없음</span><span class="en">No values found for the given query</span></td>
           </tr>
           <tr>
-            <td><code>50006</code></td>
-            <td><span class="status status-warn">500</span></td>
-            <td>Timeout</td>
-            <td>Request exceeded 60-second time limit</td>
+            <td><code>50006</code></td><td><span class="status status-warn">500</span></td>
+            <td><span class="ko">타임아웃</span><span class="en">Timeout</span></td>
+            <td><span class="ko">요청이 60초 제한을 초과</span><span class="en">Request exceeded 60-second time limit</span></td>
           </tr>
           <tr>
-            <td><code>429</code></td>
-            <td><span class="status status-limit">429</span></td>
-            <td>Rate Limit</td>
-            <td>Daily quota exceeded — retry after specified duration</td>
+            <td><code>429</code></td><td><span class="status status-limit">429</span></td>
+            <td><span class="ko">호출 제한</span><span class="en">Rate Limit</span></td>
+            <td><span class="ko">일일 쿼터 초과 — 지정 시간 이후 재시도</span><span class="en">Daily quota exceeded — retry after specified duration</span></td>
           </tr>
         </tbody>
       </table>
@@ -1138,19 +1089,25 @@
 
   <!-- DATA FORMAT -->
   <section id="data-format">
-    <h2><span class="icon">📝</span>Data Format Notes</h2>
-    <p class="section-desc">Important notes about data formatting in API responses.</p>
+    <h2><span class="icon">📝</span><span class="ko">데이터 형식 참고</span><span class="en">Data Format Notes</span></h2>
+    <p class="section-desc">
+      <span class="ko">API 응답의 데이터 형식에 대한 중요 참고사항입니다.</span>
+      <span class="en">Important notes about data formatting in API responses.</span>
+    </p>
 
     <ul>
-      <li>Timestamps use <strong>ISO 8601</strong> format: <code>yyyy-MM-ddThh:mm:ss</code></li>
-      <li>Numeric values may be returned as <strong>strings</strong> — always parse before performing calculations</li>
-      <li><code>null</code> values indicate missing or unavailable data</li>
-      <li>Large numbers may use scientific notation (e.g., <code>2.4410150204E10</code>)</li>
+      <li><span class="ko">타임스탬프는 <strong>ISO 8601</strong> 형식 사용: <code>yyyy-MM-ddThh:mm:ss</code></span><span class="en">Timestamps use <strong>ISO 8601</strong> format: <code>yyyy-MM-ddThh:mm:ss</code></span></li>
+      <li><span class="ko">숫자 값이 <strong>문자열</strong>로 반환될 수 있음 — 연산 전 반드시 파싱 필요</span><span class="en">Numeric values may be returned as <strong>strings</strong> — always parse before performing calculations</span></li>
+      <li><span class="ko"><code>null</code> 값은 데이터가 없거나 사용 불가능함을 의미</span><span class="en"><code>null</code> values indicate missing or unavailable data</span></li>
+      <li><span class="ko">큰 숫자는 지수 표기법 사용 가능 (예: <code>2.4410150204E10</code>)</span><span class="en">Large numbers may use scientific notation (e.g., <code>2.4410150204E10</code>)</span></li>
     </ul>
 
     <div class="callout callout-warn">
       <span class="callout-icon">⚠️</span>
-      <div><strong>Important:</strong> Always validate and parse numeric strings from API responses. Do not assume values will be returned as numeric types.</div>
+      <div>
+        <span class="ko"><strong>중요:</strong> API 응답의 숫자 문자열은 항상 검증하고 파싱하세요. 값이 숫자 타입으로 반환된다고 가정하지 마세요.</span>
+        <span class="en"><strong>Important:</strong> Always validate and parse numeric strings from API responses. Do not assume values will be returned as numeric types.</span>
+      </div>
     </div>
   </section>
 
@@ -1161,17 +1118,61 @@
     <p style="margin-bottom:8px;">
       <strong style="color:var(--text-secondary);">DFINERY</strong> Report Open API Documentation
     </p>
-    <p>Need help? Contact <a href="mailto:se.team@adbrixsupport.zendesk.com" style="color:var(--accent-light);text-decoration:none;">se.team@adbrixsupport.zendesk.com</a></p>
+    <p>
+      <span class="ko">도움이 필요하신가요?</span><span class="en">Need help?</span>
+      <a href="mailto:se.team@adbrixsupport.zendesk.com" style="color:var(--accent-light);text-decoration:none;">se.team@adbrixsupport.zendesk.com</a>
+    </p>
     <p style="margin-top:12px;">© IGAWORKS Inc. All rights reserved.</p>
   </div>
 
 </div>
 
-<!-- SIDEBAR ACTIVE STATE -->
 <script>
+  // Theme toggle
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    document.getElementById('themeIcon').textContent = next === 'dark' ? '☀️' : '🌙';
+    const label = document.querySelector('#themeToggle .ko');
+    const labelEn = document.querySelector('#themeToggle .en');
+    if (label) label.textContent = next === 'dark' ? '라이트' : '다크';
+    if (labelEn) labelEn.textContent = next === 'dark' ? 'Light' : 'Dark';
+    localStorage.setItem('theme', next);
+  }
+
+  // Language toggle
+  function toggleLang() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-lang');
+    const next = current === 'ko' ? 'en' : 'ko';
+    html.setAttribute('data-lang', next);
+    html.setAttribute('lang', next);
+    document.getElementById('langLabel').textContent = next === 'ko' ? 'EN' : 'KO';
+    localStorage.setItem('lang', next);
+  }
+
+  // Restore from localStorage
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeIcon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    const label = document.querySelector('#themeToggle .ko');
+    const labelEn = document.querySelector('#themeToggle .en');
+    if (label) label.textContent = savedTheme === 'dark' ? '라이트' : '다크';
+    if (labelEn) labelEn.textContent = savedTheme === 'dark' ? 'Light' : 'Dark';
+  }
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang) {
+    document.documentElement.setAttribute('data-lang', savedLang);
+    document.documentElement.setAttribute('lang', savedLang);
+    document.getElementById('langLabel').textContent = savedLang === 'ko' ? 'EN' : 'KO';
+  }
+
+  // Sidebar active state
   const sections = document.querySelectorAll('section[id], div[id]');
   const navLinks = document.querySelectorAll('.nav-link');
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1181,7 +1182,6 @@
       }
     });
   }, { rootMargin: '-80px 0px -80% 0px' });
-
   sections.forEach(section => observer.observe(section));
 </script>
 
